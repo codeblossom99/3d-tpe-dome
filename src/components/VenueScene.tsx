@@ -12,6 +12,7 @@ import {
 } from "@/lib/venue/geometry";
 import Seats from "./Seats";
 import VenueMinimap from "./VenueMinimap";
+import styles from "./VenueScene.module.css";
 import type {
   ArcLayout,
   PolygonLayout,
@@ -198,6 +199,7 @@ export default function VenueScene({
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [query, setQuery] = useState("");
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const [mode, setMode] = useState<"overview" | "pov">("overview");
   const controls = useRef<CameraControls | null>(null);
@@ -230,6 +232,7 @@ export default function VenueScene({
     (id: string) => {
       setSelectedId(id);
       setQuery("");
+      setIsPanelOpen(false);
       const section = venue.sections.find((s) => s.id === id);
       const tier = section && venue.tiers.find((t) => t.id === section.tierId);
       if (!section || !tier) return;
@@ -318,7 +321,7 @@ export default function VenueScene({
             section,
             selected: section.id === selectedId,
             hovered: section.id === hoveredId,
-            onSelect: setSelectedId,
+            onSelect: focusSection,
             onHover: setHoveredId,
           };
           return section.layout.type === "arc" ? (
@@ -344,7 +347,9 @@ export default function VenueScene({
       </Canvas>
 
       {/* search bar */}
+      {mode !== "pov" && (
       <div
+        className={styles.search}
         style={{
           position: "absolute",
           top: 16,
@@ -407,6 +412,7 @@ export default function VenueScene({
           </div>
         )}
       </div>
+      )}
 
       {/* hover label — 未點擊就能知道是哪一區 */}
       {hoveredId && hoveredId !== selectedId && (
@@ -432,8 +438,17 @@ export default function VenueScene({
         </div>
       )}
 
-      {/* right column: minimap + section card */}
+      {isPanelOpen && (
+        <button
+          className={styles.panelBackdrop}
+          aria-label="關閉場館區域面板"
+          onClick={() => setIsPanelOpen(false)}
+        />
+      )}
+
+      {/* desktop side panel / mobile bottom sheet */}
       <div
+        className={`${styles.venuePanel} ${isPanelOpen ? styles.venuePanelOpen : ""}`}
         style={{
           position: "absolute",
           top: 16,
@@ -454,7 +469,7 @@ export default function VenueScene({
             stage={stage}
             selectedId={selectedId}
             hoveredId={hoveredId}
-            onSelect={setSelectedId}
+            onSelect={focusSection}
           />
         </div>
 
@@ -486,8 +501,12 @@ export default function VenueScene({
               {selected.notes && (
                 <div style={{ marginTop: 8, color: "#fca5a5" }}>⚠ {selected.notes}</div>
               )}
+              {mode === "overview" && (
               <button
-                onClick={mode === "pov" ? goOverview : goPov}
+                onClick={() => {
+                  goPov();
+                  setIsPanelOpen(false);
+                }}
                 style={{
                   marginTop: 12,
                   width: "100%",
@@ -496,12 +515,13 @@ export default function VenueScene({
                   border: "none",
                   cursor: "pointer",
                   fontWeight: 700,
-                  background: mode === "pov" ? "#475569" : "#f59e0b",
-                  color: mode === "pov" ? "#f8fafc" : "#1e293b",
+                  background: "#f59e0b",
+                  color: "#1e293b",
                 }}
               >
-                {mode === "pov" ? "回到全景 (Esc)" : "進入座位視角"}
+                進入座位視角
               </button>
+              )}
             </>
           ) : (
             <div style={{ marginTop: 6, opacity: 0.8 }}>
@@ -511,8 +531,24 @@ export default function VenueScene({
         </div>
       </div>
 
+      {mode === "overview" && (
+        <button
+          className={styles.panelTrigger}
+          aria-expanded={isPanelOpen}
+          onClick={() => setIsPanelOpen((open) => !open)}
+        >
+          <span>
+            {selected
+              ? `${selected.id} 區`
+              : "區域"}
+          </span>
+          <span aria-hidden="true">{isPanelOpen ? "↓" : "↑"}</span>
+        </button>
+      )}
+
       {/* camera controls */}
       <div
+        className={styles.cameraControls}
         style={{
           position: "absolute",
           bottom: 20,
