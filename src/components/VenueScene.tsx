@@ -10,7 +10,7 @@ import {
   polygonCentroid,
   sectionViewpoint,
 } from "@/lib/venue/geometry";
-import Crowd from "./Crowd";
+import Seats from "./Seats";
 import VenueMinimap from "./VenueMinimap";
 import type {
   ArcLayout,
@@ -200,8 +200,20 @@ export default function VenueScene({
     if (!selected || !selectedTier) return;
     const eye = venue.eyeHeight?.seated ?? 1.2;
     const p = sectionViewpoint(selectedTier, selected, eye);
+    // First-person: park the orbit target 0.5m ahead of the eye, toward the
+    // stage. With min/maxDistance clamped small, dragging looks around in
+    // place instead of orbiting the stage.
+    const d = new THREE.Vector3(
+      stageTarget.x - p.x,
+      stageTarget.y - p.y,
+      stageTarget.z - p.z
+    ).normalize();
     setMode("pov");
-    controls.current?.setLookAt(p.x, p.y, p.z, stageTarget.x, stageTarget.y, stageTarget.z, true);
+    controls.current?.setLookAt(
+      p.x, p.y, p.z,
+      p.x + d.x * 0.5, p.y + d.y * 0.5, p.z + d.z * 0.5,
+      true
+    );
   }, [selected, selectedTier, venue, stageTarget]);
 
   useEffect(() => {
@@ -241,15 +253,18 @@ export default function VenueScene({
           );
         })}
 
-        <Crowd venue={venue} />
+        <Seats venue={venue} />
         <StageMesh stage={stage} />
         <Obstructions venue={venue} />
 
         <CameraControls
           ref={controls}
-          maxPolarAngle={Math.PI / 2.05}
-          minDistance={mode === "pov" ? 0.1 : 20}
-          maxDistance={300}
+          maxPolarAngle={mode === "pov" ? Math.PI : Math.PI / 2.05}
+          minDistance={mode === "pov" ? 0.5 : 20}
+          maxDistance={mode === "pov" ? 0.5 : 300}
+          azimuthRotateSpeed={mode === "pov" ? -0.4 : 1}
+          polarRotateSpeed={mode === "pov" ? -0.4 : 1}
+          truckSpeed={mode === "pov" ? 0 : 2}
         />
       </Canvas>
 
