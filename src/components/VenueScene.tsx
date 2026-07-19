@@ -197,6 +197,7 @@ export default function VenueScene({
   const stage = useMemo(() => loadStage(venueId, stageId), [venueId, stageId]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [query, setQuery] = useState("");
   const [mode, setMode] = useState<"overview" | "pov">("overview");
   const controls = useRef<CameraControls | null>(null);
 
@@ -207,6 +208,47 @@ export default function VenueScene({
     const c = stage.footprint ? polygonCentroid(stage.footprint) : { x: 0, z: 0 };
     return { x: c.x, y: (stage.height ?? 1.5) + 1.5, z: c.z };
   }, [stage]);
+
+  const matches = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return [];
+    return venue.sections
+      .filter((s) => {
+        const tierLabel =
+          venue.tiers.find((t) => t.id === s.tierId)?.label ?? "";
+        return (
+          s.id.toLowerCase().includes(q) ||
+          (s.label ?? "").toLowerCase().includes(q) ||
+          tierLabel.toLowerCase().includes(q)
+        );
+      })
+      .slice(0, 8);
+  }, [query, venue]);
+
+  const focusSection = useCallback(
+    (id: string) => {
+      setSelectedId(id);
+      setQuery("");
+      const section = venue.sections.find((s) => s.id === id);
+      const tier = section && venue.tiers.find((t) => t.id === section.tierId);
+      if (!section || !tier) return;
+      setMode("overview");
+      const p = sectionViewpoint(tier, section, 0);
+      // camera outside/above the section, looking at it
+      const len = Math.hypot(p.x, p.z) || 1;
+      const out = 1.45;
+      controls.current?.setLookAt(
+        (p.x / len) * len * out,
+        p.y + 40,
+        (p.z / len) * len * out,
+        p.x,
+        p.y,
+        p.z,
+        true
+      );
+    },
+    [venue]
+  );
 
   const goOverview = useCallback(() => {
     setMode("overview");
@@ -284,6 +326,71 @@ export default function VenueScene({
           truckSpeed={mode === "pov" ? 0 : 2}
         />
       </Canvas>
+
+      {/* search bar */}
+      <div
+        style={{
+          position: "absolute",
+          top: 16,
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: 260,
+          fontFamily: "system-ui, sans-serif",
+        }}
+      >
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && matches[0]) focusSection(matches[0].id);
+            if (e.key === "Escape") {
+              e.stopPropagation();
+              setQuery("");
+            }
+          }}
+          placeholder="搜尋區域，例如 309、A…"
+          style={{
+            width: "100%",
+            boxSizing: "border-box",
+            padding: "10px 16px",
+            borderRadius: 999,
+            border: "none",
+            outline: "none",
+            fontSize: 14,
+            background: "rgba(15, 23, 42, 0.88)",
+            color: "#f8fafc",
+          }}
+        />
+        {matches.length > 0 && (
+          <div
+            style={{
+              marginTop: 6,
+              background: "rgba(15, 23, 42, 0.95)",
+              borderRadius: 12,
+              overflow: "hidden",
+            }}
+          >
+            {matches.map((m) => (
+              <div
+                key={m.id}
+                onClick={() => focusSection(m.id)}
+                style={{
+                  padding: "9px 16px",
+                  color: "#f8fafc",
+                  fontSize: 14,
+                  cursor: "pointer",
+                  borderBottom: "1px solid rgba(148, 163, 184, 0.15)",
+                }}
+              >
+                <strong>{m.id} 區</strong>
+                <span style={{ opacity: 0.6, marginLeft: 8, fontSize: 12 }}>
+                  {venue.tiers.find((t) => t.id === m.tierId)?.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
 
       {/* hover label — 未點擊就能知道是哪一區 */}
       {hoveredId && hoveredId !== selectedId && (
