@@ -198,6 +198,7 @@ export default function VenueScene({
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [query, setQuery] = useState("");
+  const containerRef = useRef<HTMLDivElement>(null);
   const [mode, setMode] = useState<"overview" | "pov">("overview");
   const controls = useRef<CameraControls | null>(null);
 
@@ -283,9 +284,24 @@ export default function VenueScene({
     return () => window.removeEventListener("keydown", onKey);
   }, [goOverview]);
 
+  const takeScreenshot = useCallback(() => {
+    const canvas = containerRef.current?.querySelector("canvas");
+    if (!canvas) return;
+    const a = document.createElement("a");
+    a.href = canvas.toDataURL("image/png");
+    a.download = `${venueId}-${selectedId ?? "overview"}.png`;
+    a.click();
+  }, [venueId, selectedId]);
+
   return (
-    <div style={{ position: "relative", width: "100%", height: "100%", background: "#0f172a" }}>
-      <Canvas camera={{ position: [0, 80, 120], fov: 50 }}>
+    <div
+      ref={containerRef}
+      style={{ position: "relative", width: "100%", height: "100%", background: "#0f172a" }}
+    >
+      <Canvas
+        camera={{ position: [0, 80, 120], fov: 50 }}
+        gl={{ preserveDrawingBuffer: true }}
+      >
         <ambientLight intensity={0.6} />
         <directionalLight position={[50, 100, 50]} intensity={1} />
 
@@ -515,6 +531,9 @@ export default function VenueScene({
         </button>
         <button style={camBtnStyle} onClick={() => controls.current?.dolly(-15, true)}>
           －
+        </button>
+        <button style={camBtnStyle} onClick={takeScreenshot} title="下載截圖">
+          📷
         </button>
       </div>
 
