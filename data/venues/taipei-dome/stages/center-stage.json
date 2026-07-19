@@ -1,0 +1,15 @@
+{
+  "type": "center",
+  "position": { "x": 0, "z": 0 },
+  "rotation": 0,
+  "footprint": [
+    { "x": -12, "z": -12 }, { "x": 12, "z": -12 }, { "x": 12, "z": 12 }, { "x": -12, "z": 12 }
+  ],
+  "height": 1.5,
+  "extensions": [
+    { "footprint": [ { "x": 12, "z": -2 }, { "x": 35, "z": -2 }, { "x": 35, "z": 2 }, { "x": 12, "z": 2 } ], "height": 1.5 }
+  ],
+  "screens": [
+    { "position": { "x": 0, "y": 20, "z": 0 }, "width": 16, "height": 9, "facing": 0 }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "id": "taipei-dome",
+  "name": "台北大巨蛋",
+  "units": "meters",
+
+  "field": { "shape": "ellipse", "radiusX": 60, "radiusZ": 55 },
+
+  "tiers": [
+    { "id": "tier1", "label": "1F 內野看台", "baseHeight": 2, "innerRadius": 62, "rowCount": 34, "rowDepth": 0.85, "rowRise": 0.38 },
+    { "id": "tier2", "label": "2F 看台", "baseHeight": 16, "innerRadius": 68, "rowCount": 19, "rowDepth": 0.85, "rowRise": 0.45, "overhangFrom": "tier3" },
+    { "id": "tier3", "label": "3F 看台", "baseHeight": 26, "innerRadius": 72, "rowCount": 8, "rowDepth": 0.85, "rowRise": 0.5 },
+    { "id": "tier4", "label": "4F 看台", "baseHeight": 32, "innerRadius": 74, "rowCount": 6, "rowDepth": 0.85, "rowRise": 0.55 }
+  ],
+
+  "sections": [
+    { "id": "108", "tierId": "tier1", "layout": { "type": "arc", "startAngle": 40, "endAngle": 55 } },
+    { "id": "121", "tierId": "tier1", "layout": { "type": "arc", "startAngle": 235, "endAngle": 250 } },
+    { "id": "204", "tierId": "tier2", "layout": { "type": "arc", "startAngle": 25, "endAngle": 40 } },
+    { "id": "243", "tierId": "tier2", "layout": { "type": "arc", "startAngle": 310, "endAngle": 325 }, "notes": "視線遮蔽區：主舞台正中有柱" },
+    { "id": "314", "tierId": "tier3", "layout": { "type": "arc", "startAngle": 100, "endAngle": 115 } },
+    {
+      "id": "floor-A",
+      "tierId": "tier1",
+      "layout": {
+        "type": "polygon",
+        "points": [ { "x": -20, "z": 10 }, { "x": 20, "z": 10 }, { "x": 20, "z": 40 }, { "x": -20, "z": 40 } ],
+        "rowDirection": 270
+      }
+    }
+  ],
+
+  "obstructions": [
+    { "id": "col-1", "kind": "column", "position": { "x": 48, "z": -30 }, "radius": 0.8, "baseHeight": 0, "height": 30, "affectsSections": ["243"] },
+    { "id": "rail-tier2", "kind": "railing", "baseHeight": 16, "height": 1.0, "path": [ { "x": 68, "z": -10 }, { "x": 68, "z": 10 } ] }
+  ],
+
+  "eyeHeight": { "seated": 1.2, "standing": 1.6 }
+}

@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/venue-config.schema.json",
+  "title": "VenueConfig",
+  "description": "Config for procedurally generating a 3D concert venue (stands, sections, stage, obstructions) in Three.js / R3F",
+  "type": "object",
+  "required": ["id", "name", "units", "field", "tiers", "sections"],
+  "properties": {
+    "id": { "type": "string", "description": "Venue slug, e.g. 'taipei-dome'" },
+    "name": { "type": "string", "description": "Display name, e.g. '台北大巨蛋'" },
+    "units": { "const": "meters", "description": "All lengths in meters; world origin = center of the field, +Y up" },
+
+    "field": {
+      "type": "object",
+      "description": "Ground-level playing field / floor area footprint",
+      "required": ["shape"],
+      "properties": {
+        "shape": { "enum": ["ellipse", "rect", "polygon"] },
+        "radiusX": { "type": "number", "description": "For ellipse: semi-axis along X" },
+        "radiusZ": { "type": "number", "description": "For ellipse: semi-axis along Z" },
+        "width": { "type": "number" },
+        "depth": { "type": "number" },
+        "points": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/xz" },
+          "description": "For polygon: ordered XZ vertices"
+        }
+      }
+    },
+
+    "tiers": {
+      "type": "array",
+      "description": "Seating levels (e.g. 1F 內野, 2F, 3F, 4F). Sections reference these by id.",
+      "items": {
+        "type": "object",
+        "required": ["id", "baseHeight", "rowCount", "rowDepth", "rowRise"],
+        "properties": {
+          "id": { "type": "string", "description": "'tier1', 'tier2'..." },
+          "label": { "type": "string", "description": "'1F 看台'" },
+          "baseHeight": { "type": "number", "description": "Y of the tier's first row (front edge)" },
+          "innerRadius": { "type": "number", "description": "Distance from origin to the tier's front edge (for ring-based tiers)" },
+          "rowCount": { "type": "integer", "minimum": 1 },
+          "rowDepth": { "type": "number", "description": "Horizontal depth per row (tread), typically 0.8–0.95" },
+          "rowRise": { "type": "number", "description": "Vertical rise per row (riser). rowRise/rowDepth = rake angle" },
+          "seatSpacing": { "type": "number", "default": 0.5, "description": "Lateral distance between adjacent seats" },
+          "overhangFrom": { "type": "string", "description": "Optional: tier id above this one that visually overhangs it (affects開闊感, 可做遮蔽提示)" }
+        }
+      }
+    },
+
+    "sections": {
+      "type": "array",
+      "description": "Selectable seating blocks. Each is an angular slice of a tier (ring layout) or an explicit polygon (floor blocks).",
+      "items": {
+        "type": "object",
+        "required": ["id", "tierId", "layout"],
+        "properties": {
+          "id": { "type": "string", "description": "'204', '108', 'floor-A'" },
+          "label": { "type": "string" },
+          "tierId": { "type": "string" },
+          "layout": {
+            "oneOf": [
+              {
+                "type": "object",
+                "required": ["type", "startAngle", "endAngle"],
+                "properties": {
+                  "type": { "const": "arc" },
+                  "startAngle": { "type": "number", "description": "Degrees, 0 = +X axis, CCW" },
+                  "endAngle": { "type": "number" },
+                  "rowStart": { "type": "integer", "description": "Override: first row index within tier" },
+                  "rowEnd": { "type": "integer" }
+                }
+              },
+              {
+                "type": "object",
+                "required": ["type", "points"],
+                "properties": {
+                  "type": { "const": "polygon" },
+                  "points": { "type": "array", "items": { "$ref": "#/$defs/xz" } },
+                  "rowDirection": { "type": "number", "description": "Degrees the rows face (for floor blocks with flat/gentle rake)" }
+                }
+              }
+            ]
+          },
+          "priceTier": { "type": "string" },
+          "notes": { "type": "string", "description": "Known caveats, e.g. '視線遮蔽區'" }
+        }
+      }
+    },
+
+    "stage": {
+      "type": "object",
+      "description": "Stage setup — separate from the venue because it changes per concert. Can also live in its own file keyed by event.",
+      "properties": {
+        "type": { "enum": ["center", "end", "four-sided", "custom"] },
+        "position": { "$ref": "#/$defs/xz" },
+        "rotation": { "type": "number", "description": "Degrees" },
+        "footprint": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/xz" },
+          "description": "Stage outline; also the ray-casting target set for occlusion %"
+        },
+        "height": { "type": "number", "default": 1.5 },
+        "extensions": {
+          "type": "array",
+          "description": "延伸舞台 / runway",
+          "items": {
+            "type": "object",
+            "properties": {
+              "footprint": { "type": "array", "items": { "$ref": "#/$defs/xz" } },
+              "height": { "type": "number" }
+            }
+          }
+        },
+        "screens": {
+          "type": "array",
+          "description": "大螢幕 positions (also useful for '看螢幕會不會被擋')",
+          "items": {
+            "type": "object",
+            "properties": {
+              "position": { "$ref": "#/$defs/xyz" },
+              "width": { "type": "number" },
+              "height": { "type": "number" },
+              "facing": { "type": "number", "description": "Degrees" }
+            }
+          }
+        }
+      }
+    },
+
+    "obstructions": {
+      "type": "array",
+      "description": "Structural elements that block sightlines — the input to ray-casting 避雷計算",
+      "items": {
+        "type": "object",
+        "required": ["id", "kind"],
+        "properties": {
+          "id": { "type": "string" },
+          "kind": { "enum": ["column", "railing", "speaker", "rigging", "wall"] },
+          "position": { "$ref": "#/$defs/xz" },
+          "radius": { "type": "number", "description": "For column: cylinder radius" },
+          "baseHeight": { "type": "number", "default": 0 },
+          "height": { "type": "number" },
+          "path": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/xz" },
+            "description": "For railing/wall: polyline it runs along"
+          },
+          "affectsSections": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Optional hint to skip ray tests for unrelated sections (perf)"
+          }
+        }
+      }
+    },
+
+    "eyeHeight": {
+      "type": "object",
+      "description": "Camera height offsets when rendering seat POV",
+      "properties": {
+        "seated": { "type": "number", "default": 1.2 },
+        "standing": { "type": "number", "default": 1.6 }
+      }
+    }
+  },
+
+  "$defs": {
+    "xz": {
+      "type": "object",
+      "required": ["x", "z"],
+      "properties": { "x": { "type": "number" }, "z": { "type": "number" } }
+    },
+    "xyz": {
+      "type": "object",
+      "required": ["x", "y", "z"],
+      "properties": { "x": { "type": "number" }, "y": { "type": "number" }, "z": { "type": "number" } }
+    }
+  }
+}
