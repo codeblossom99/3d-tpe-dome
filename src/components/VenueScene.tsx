@@ -273,9 +273,8 @@ export default function VenueScene({
         <div
           style={{
             position: "absolute",
-            bottom: 20,
-            left: "50%",
-            transform: "translateX(-50%)",
+            top: 16,
+            left: 16,
             background: "rgba(15, 23, 42, 0.88)",
             color: "#f8fafc",
             borderRadius: 999,
