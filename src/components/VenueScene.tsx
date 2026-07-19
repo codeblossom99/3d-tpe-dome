@@ -136,16 +136,33 @@ function StageMesh({ stage }: { stage: Stage }) {
           <meshStandardMaterial color="#334155" />
         </mesh>
       ))}
-      {(stage.screens ?? []).map((s, i) => (
-        <mesh
-          key={`screen-${i}`}
-          position={[s.position?.x ?? 0, s.position?.y ?? 10, s.position?.z ?? 0]}
-          rotation={[0, ((s.facing ?? 0) * Math.PI) / 180, 0]}
-        >
-          <planeGeometry args={[s.width ?? 16, s.height ?? 9]} />
-          <meshStandardMaterial color="#0ea5e9" emissive="#0ea5e9" emissiveIntensity={0.4} side={THREE.DoubleSide} />
-        </mesh>
-      ))}
+      {(stage.screens ?? []).map((s, i) => {
+        const w = s.width ?? 16;
+        const h = s.height ?? 9;
+        return (
+          <group
+            key={`screen-${i}`}
+            position={[s.position?.x ?? 0, s.position?.y ?? 10, s.position?.z ?? 0]}
+            rotation={[0, ((s.facing ?? 0) * Math.PI) / 180, 0]}
+          >
+            {/* frame / LED wall body */}
+            <mesh position={[0, 0, -0.35]}>
+              <boxGeometry args={[w + 1, h + 1, 0.6]} />
+              <meshStandardMaterial color="#0f172a" />
+            </mesh>
+            {/* glowing panel */}
+            <mesh>
+              <planeGeometry args={[w, h]} />
+              <meshStandardMaterial
+                color="#38bdf8"
+                emissive="#38bdf8"
+                emissiveIntensity={0.7}
+                side={THREE.DoubleSide}
+              />
+            </mesh>
+          </group>
+        );
+      })}
     </group>
   );
 }
