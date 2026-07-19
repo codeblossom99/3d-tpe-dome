@@ -1,5 +1,5 @@
 // Pure math — no three.js imports, so it's trivially testable with vitest.
-import type { ArcLayout, Tier } from "./types";
+import type { ArcLayout, PolygonLayout, Section, Tier, XZ } from "./types";
 
 const DEG = Math.PI / 180;
 
@@ -68,4 +68,39 @@ export function buildArcSectionGeometry(
   }
 
   return out;
+}
+
+export function polygonCentroid(points: XZ[]): XZ {
+  let x = 0;
+  let z = 0;
+  for (const p of points) {
+    x += p.x;
+    z += p.z;
+  }
+  return { x: x / points.length, z: z / points.length };
+}
+
+/**
+ * Eye position for a seat POV camera at the middle of a section.
+ * Arc sections: mid angle, mid row of the section's row range.
+ * Polygon sections: centroid at eyeHeight above the tier base.
+ */
+export function sectionViewpoint(
+  tier: Tier,
+  section: Section,
+  eyeHeight = 1.2
+): { x: number; y: number; z: number } {
+  if (section.layout.type === "polygon") {
+    const layout = section.layout as PolygonLayout;
+    const c = polygonCentroid(layout.points);
+    return { x: c.x, y: tier.baseHeight + eyeHeight, z: c.z };
+  }
+  const layout = section.layout as ArcLayout;
+  const rowStart = layout.rowStart ?? 0;
+  const rowEnd = layout.rowEnd ?? tier.rowCount;
+  const midRow = (rowStart + rowEnd) / 2;
+  const r = (tier.innerRadius ?? 0) + midRow * tier.rowDepth;
+  const y = tier.baseHeight + midRow * tier.rowRise + eyeHeight;
+  const a = ((layout.startAngle + layout.endAngle) / 2) * (Math.PI / 180);
+  return { x: r * Math.cos(a), y, z: r * Math.sin(a) };
 }
