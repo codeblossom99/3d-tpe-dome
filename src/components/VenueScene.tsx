@@ -259,10 +259,13 @@ export default function VenueScene({
     controls.current?.setLookAt(0, 80, 120, 0, 0, 0, true);
   }, []);
 
-  const goPov = useCallback(() => {
-    if (!selected || !selectedTier) return;
+  const goPovForSection = useCallback((id: string) => {
+    const section = venue.sections.find((item) => item.id === id);
+    const tier = section && venue.tiers.find((item) => item.id === section.tierId);
+    if (!section || !tier) return;
+
     const eye = venue.eyeHeight?.seated ?? 1.2;
-    const p = sectionViewpoint(selectedTier, selected, eye);
+    const p = sectionViewpoint(tier, section, eye);
     // First-person: park the orbit target 0.5m ahead of the eye, toward the
     // stage. With min/maxDistance clamped small, dragging looks around in
     // place instead of orbiting the stage.
@@ -271,13 +274,31 @@ export default function VenueScene({
       stageTarget.y - p.y,
       stageTarget.z - p.z
     ).normalize();
+    setSelectedId(id);
+    setQuery("");
+    setIsPanelOpen(false);
     setMode("pov");
     controls.current?.setLookAt(
       p.x, p.y, p.z,
       p.x + d.x * 0.5, p.y + d.y * 0.5, p.z + d.z * 0.5,
       true
     );
-  }, [selected, selectedTier, venue, stageTarget]);
+  }, [venue, stageTarget]);
+
+  const goPov = useCallback(() => {
+    if (selected) goPovForSection(selected.id);
+  }, [selected, goPovForSection]);
+
+  const handleSectionSelect = useCallback(
+    (id: string) => {
+      if (window.matchMedia("(max-width: 720px)").matches) {
+        goPovForSection(id);
+        return;
+      }
+      focusSection(id);
+    },
+    [focusSection, goPovForSection]
+  );
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -321,7 +342,7 @@ export default function VenueScene({
             section,
             selected: section.id === selectedId,
             hovered: section.id === hoveredId,
-            onSelect: focusSection,
+            onSelect: handleSectionSelect,
             onHover: setHoveredId,
           };
           return section.layout.type === "arc" ? (
@@ -363,7 +384,7 @@ export default function VenueScene({
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === "Enter" && matches[0]) focusSection(matches[0].id);
+            if (e.key === "Enter" && matches[0]) handleSectionSelect(matches[0].id);
             if (e.key === "Escape") {
               e.stopPropagation();
               setQuery("");
@@ -394,7 +415,7 @@ export default function VenueScene({
             {matches.map((m) => (
               <div
                 key={m.id}
-                onClick={() => focusSection(m.id)}
+                onClick={() => handleSectionSelect(m.id)}
                 style={{
                   padding: "9px 16px",
                   color: "#f8fafc",
@@ -469,7 +490,7 @@ export default function VenueScene({
             stage={stage}
             selectedId={selectedId}
             hoveredId={hoveredId}
-            onSelect={focusSection}
+            onSelect={handleSectionSelect}
           />
         </div>
 
