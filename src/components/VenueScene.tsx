@@ -6,11 +6,12 @@ import { CameraControls } from "@react-three/drei";
 import * as THREE from "three";
 import { loadStage, loadVenue } from "@/lib/venue/loadVenue";
 import {
-  arcSeatPositions,
   buildArcSectionGeometry,
   polygonCentroid,
   sectionViewpoint,
 } from "@/lib/venue/geometry";
+import Crowd from "./Crowd";
+import VenueMinimap from "./VenueMinimap";
 import type {
   ArcLayout,
   PolygonLayout,
@@ -19,6 +20,18 @@ import type {
   Tier,
   VenueConfig,
 } from "@/lib/venue/types";
+
+const camBtnStyle: React.CSSProperties = {
+  width: 40,
+  height: 40,
+  borderRadius: 10,
+  border: "none",
+  cursor: "pointer",
+  fontSize: 18,
+  fontWeight: 700,
+  background: "rgba(15, 23, 42, 0.88)",
+  color: "#f8fafc",
+};
 
 const TIER_COLORS: Record<string, string> = {
   floor: "#4ade80",
@@ -97,34 +110,6 @@ function FloorSection({ tier, section, selected, hovered, onSelect, onHover }: S
   );
 }
 
-/** Individual seats for the selected arc section (visible in POV and overview). */
-function SectionSeats({ tier, section }: { tier: Tier; section: SectionType }) {
-  const ref = useRef<THREE.InstancedMesh>(null);
-  const positions = useMemo(
-    () =>
-      arcSeatPositions(tier, section.layout as ArcLayout, tier.seatSpacing ?? 0.5),
-    [tier, section]
-  );
-  const count = positions.length / 3;
-
-  useEffect(() => {
-    const mesh = ref.current;
-    if (!mesh) return;
-    const m = new THREE.Matrix4();
-    for (let i = 0; i < count; i++) {
-      m.setPosition(positions[i * 3], positions[i * 3 + 1] + 0.25, positions[i * 3 + 2]);
-      mesh.setMatrixAt(i, m);
-    }
-    mesh.instanceMatrix.needsUpdate = true;
-  }, [positions, count]);
-
-  return (
-    <instancedMesh ref={ref} args={[undefined, undefined, count]} key={section.id}>
-      <boxGeometry args={[0.4, 0.5, 0.4]} />
-      <meshStandardMaterial color="#e11d48" />
-    </instancedMesh>
-  );
-}
 
 function StageMesh({ stage }: { stage: Stage }) {
   const geometries = useMemo(() => {
@@ -256,10 +241,7 @@ export default function VenueScene({
           );
         })}
 
-        {selected && selectedTier && selected.layout.type === "arc" && (
-          <SectionSeats tier={selectedTier} section={selected} />
-        )}
-
+        <Crowd venue={venue} />
         <StageMesh stage={stage} />
         <Obstructions venue={venue} />
 
@@ -296,57 +278,131 @@ export default function VenueScene({
         </div>
       )}
 
-      {/* side panel */}
+      {/* right column: minimap + section card */}
       <div
         style={{
           position: "absolute",
           top: 16,
           right: 16,
           width: 260,
-          background: "rgba(15, 23, 42, 0.88)",
-          color: "#f8fafc",
-          borderRadius: 12,
-          padding: "16px 18px",
-          fontSize: 14,
-          lineHeight: 1.5,
+          display: "flex",
+          flexDirection: "column",
+          gap: 12,
           fontFamily: "system-ui, sans-serif",
         }}
       >
-        <div style={{ fontSize: 12, opacity: 0.7 }}>
-          {venue.name}（{stageId === "center-stage" ? "中央舞台" : "標準舞台"}）
-        </div>
-        {selected ? (
-          <>
-            <div style={{ fontSize: 24, fontWeight: 700, margin: "4px 0" }}>
-              {selected.label ?? `${selected.id} 區`}
-            </div>
-            <div style={{ opacity: 0.8 }}>{selectedTier?.label}</div>
-            {selected.notes && (
-              <div style={{ marginTop: 8, color: "#fca5a5" }}>⚠ {selected.notes}</div>
-            )}
-            <button
-              onClick={mode === "pov" ? goOverview : goPov}
-              style={{
-                marginTop: 12,
-                width: "100%",
-                padding: "10px 0",
-                borderRadius: 8,
-                border: "none",
-                cursor: "pointer",
-                fontWeight: 700,
-                background: mode === "pov" ? "#475569" : "#f59e0b",
-                color: mode === "pov" ? "#f8fafc" : "#1e293b",
-              }}
-            >
-              {mode === "pov" ? "回到全景 (Esc)" : "進入座位視角"}
-            </button>
-          </>
-        ) : (
-          <div style={{ marginTop: 6, opacity: 0.8 }}>
-            點選任一座位區塊查看資訊，再進入座位視角。
+        <div style={{ background: "rgba(15, 23, 42, 0.88)", borderRadius: 12, padding: 12 }}>
+          <div style={{ color: "#f8fafc", fontSize: 11, fontWeight: 700, letterSpacing: 1, marginBottom: 8, opacity: 0.7 }}>
+            場館總覽
           </div>
-        )}
+          <VenueMinimap
+            venue={venue}
+            stage={stage}
+            selectedId={selectedId}
+            hoveredId={hoveredId}
+            onSelect={setSelectedId}
+          />
+        </div>
+
+        <div
+          style={{
+            background: "rgba(15, 23, 42, 0.88)",
+            color: "#f8fafc",
+            borderRadius: 12,
+            padding: "16px 18px",
+            fontSize: 14,
+            lineHeight: 1.5,
+          }}
+        >
+          <div style={{ fontSize: 12, opacity: 0.7 }}>
+            {venue.name}（{stageId === "center-stage" ? "中央舞台" : "標準舞台"}）
+          </div>
+          {selected ? (
+            <>
+              <div style={{ fontSize: 24, fontWeight: 700, margin: "4px 0" }}>
+                {selected.label ?? `${selected.id} 區`}
+              </div>
+              <div style={{ opacity: 0.8 }}>{selectedTier?.label}</div>
+              {selected.layout.type === "arc" && (
+                <div style={{ opacity: 0.6, fontSize: 12, marginTop: 2 }}>
+                  第 {((selected.layout as ArcLayout).rowStart ?? 0) + 1}–
+                  {(selected.layout as ArcLayout).rowEnd ?? selectedTier?.rowCount} 排
+                </div>
+              )}
+              {selected.notes && (
+                <div style={{ marginTop: 8, color: "#fca5a5" }}>⚠ {selected.notes}</div>
+              )}
+              <button
+                onClick={mode === "pov" ? goOverview : goPov}
+                style={{
+                  marginTop: 12,
+                  width: "100%",
+                  padding: "10px 0",
+                  borderRadius: 8,
+                  border: "none",
+                  cursor: "pointer",
+                  fontWeight: 700,
+                  background: mode === "pov" ? "#475569" : "#f59e0b",
+                  color: mode === "pov" ? "#f8fafc" : "#1e293b",
+                }}
+              >
+                {mode === "pov" ? "回到全景 (Esc)" : "進入座位視角"}
+              </button>
+            </>
+          ) : (
+            <div style={{ marginTop: 6, opacity: 0.8 }}>
+              點選 3D 區塊或上方小地圖查看資訊，再進入座位視角。
+            </div>
+          )}
+        </div>
       </div>
+
+      {/* camera controls */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 20,
+          left: 16,
+          display: "flex",
+          flexDirection: "column",
+          gap: 8,
+          fontFamily: "system-ui, sans-serif",
+        }}
+      >
+        <button style={camBtnStyle} onClick={() => controls.current?.rotate(Math.PI / 4, 0, true)}>
+          ⟲
+        </button>
+        <button style={camBtnStyle} onClick={() => controls.current?.dolly(15, true)}>
+          ＋
+        </button>
+        <button style={camBtnStyle} onClick={() => controls.current?.dolly(-15, true)}>
+          －
+        </button>
+      </div>
+
+      {/* POV bottom bar */}
+      {mode === "pov" && (
+        <button
+          onClick={goOverview}
+          style={{
+            position: "absolute",
+            bottom: 20,
+            left: "50%",
+            transform: "translateX(-50%)",
+            padding: "12px 28px",
+            borderRadius: 999,
+            border: "none",
+            cursor: "pointer",
+            fontSize: 15,
+            fontWeight: 700,
+            fontFamily: "system-ui, sans-serif",
+            background: "#f8fafc",
+            color: "#1e293b",
+          }}
+        >
+          ← 回到全景
+        </button>
+      )}
     </div>
   );
 }
