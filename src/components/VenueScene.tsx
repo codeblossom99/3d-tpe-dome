@@ -5,7 +5,12 @@ import { Canvas } from "@react-three/fiber";
 import { CameraControls } from "@react-three/drei";
 import * as THREE from "three";
 import { loadStage, loadVenue } from "@/lib/venue/loadVenue";
-import { buildArcSectionGeometry, polygonCentroid, sectionViewpoint } from "@/lib/venue/geometry";
+import {
+  arcSeatPositions,
+  buildArcSectionGeometry,
+  polygonCentroid,
+  sectionViewpoint,
+} from "@/lib/venue/geometry";
 import type {
   ArcLayout,
   PolygonLayout,
@@ -26,18 +31,16 @@ function useSectionMaterialColor(tierId: string, hovered: boolean, selected: boo
   return selected ? "#f97316" : hovered ? "#f9fafb" : TIER_COLORS[tierId] ?? "#9ca3af";
 }
 
-function ArcSection({
-  tier,
-  section,
-  selected,
-  onSelect,
-}: {
+interface SectionProps {
   tier: Tier;
   section: SectionType;
   selected: boolean;
+  hovered: boolean;
   onSelect: (id: string) => void;
-}) {
-  const [hovered, setHovered] = useState(false);
+  onHover: (id: string | null) => void;
+}
+
+function ArcSection({ tier, section, selected, hovered, onSelect, onHover }: SectionProps) {
   const geometry = useMemo(() => {
     const positions = buildArcSectionGeometry(tier, section.layout as ArcLayout, 8);
     const geo = new THREE.BufferGeometry();
@@ -56,27 +59,16 @@ function ArcSection({
       }}
       onPointerOver={(e) => {
         e.stopPropagation();
-        setHovered(true);
+        onHover(section.id);
       }}
-      onPointerOut={() => setHovered(false)}
+      onPointerOut={() => onHover(null)}
     >
       <meshStandardMaterial color={color} side={THREE.DoubleSide} />
     </mesh>
   );
 }
 
-function FloorSection({
-  tier,
-  section,
-  selected,
-  onSelect,
-}: {
-  tier: Tier;
-  section: SectionType;
-  selected: boolean;
-  onSelect: (id: string) => void;
-}) {
-  const [hovered, setHovered] = useState(false);
+function FloorSection({ tier, section, selected, hovered, onSelect, onHover }: SectionProps) {
   const layout = section.layout as PolygonLayout;
   const geometry = useMemo(() => {
     const shape = new THREE.Shape(layout.points.map((p) => new THREE.Vector2(p.x, p.z)));
@@ -96,12 +88,41 @@ function FloorSection({
       }}
       onPointerOver={(e) => {
         e.stopPropagation();
-        setHovered(true);
+        onHover(section.id);
       }}
-      onPointerOut={() => setHovered(false)}
+      onPointerOut={() => onHover(null)}
     >
       <meshStandardMaterial color={color} side={THREE.DoubleSide} />
     </mesh>
+  );
+}
+
+/** Individual seats for the selected arc section (visible in POV and overview). */
+function SectionSeats({ tier, section }: { tier: Tier; section: SectionType }) {
+  const ref = useRef<THREE.InstancedMesh>(null);
+  const positions = useMemo(
+    () =>
+      arcSeatPositions(tier, section.layout as ArcLayout, tier.seatSpacing ?? 0.5),
+    [tier, section]
+  );
+  const count = positions.length / 3;
+
+  useEffect(() => {
+    const mesh = ref.current;
+    if (!mesh) return;
+    const m = new THREE.Matrix4();
+    for (let i = 0; i < count; i++) {
+      m.setPosition(positions[i * 3], positions[i * 3 + 1] + 0.25, positions[i * 3 + 2]);
+      mesh.setMatrixAt(i, m);
+    }
+    mesh.instanceMatrix.needsUpdate = true;
+  }, [positions, count]);
+
+  return (
+    <instancedMesh ref={ref} args={[undefined, undefined, count]} key={section.id}>
+      <boxGeometry args={[0.4, 0.5, 0.4]} />
+      <meshStandardMaterial color="#e11d48" />
+    </instancedMesh>
   );
 }
 
@@ -163,10 +184,17 @@ function Obstructions({ venue }: { venue: VenueConfig }) {
   );
 }
 
-export default function VenueScene({ venueId }: { venueId: string }) {
+export default function VenueScene({
+  venueId,
+  stageId = "end-stage",
+}: {
+  venueId: string;
+  stageId?: string;
+}) {
   const venue = useMemo(() => loadVenue(venueId), [venueId]);
-  const stage = useMemo(() => loadStage(venueId, "end-stage"), [venueId]);
+  const stage = useMemo(() => loadStage(venueId, stageId), [venueId, stageId]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [mode, setMode] = useState<"overview" | "pov">("overview");
   const controls = useRef<CameraControls | null>(null);
 
@@ -218,7 +246,9 @@ export default function VenueScene({ venueId }: { venueId: string }) {
             tier,
             section,
             selected: section.id === selectedId,
+            hovered: section.id === hoveredId,
             onSelect: setSelectedId,
+            onHover: setHoveredId,
           };
           return section.layout.type === "arc" ? (
             <ArcSection {...props} />
@@ -226,6 +256,10 @@ export default function VenueScene({ venueId }: { venueId: string }) {
             <FloorSection {...props} />
           );
         })}
+
+        {selected && selectedTier && selected.layout.type === "arc" && (
+          <SectionSeats tier={selectedTier} section={selected} />
+        )}
 
         <StageMesh stage={stage} />
         <Obstructions venue={venue} />
@@ -237,6 +271,31 @@ export default function VenueScene({ venueId }: { venueId: string }) {
           maxDistance={300}
         />
       </Canvas>
+
+      {/* hover label — 未點擊就能知道是哪一區 */}
+      {hoveredId && hoveredId !== selectedId && (
+        <div
+          style={{
+            position: "absolute",
+            bottom: 20,
+            left: "50%",
+            transform: "translateX(-50%)",
+            background: "rgba(15, 23, 42, 0.88)",
+            color: "#f8fafc",
+            borderRadius: 999,
+            padding: "8px 20px",
+            fontSize: 15,
+            fontWeight: 600,
+            fontFamily: "system-ui, sans-serif",
+            pointerEvents: "none",
+          }}
+        >
+          {hoveredId} 區 ·{" "}
+          {venue.tiers.find(
+            (t) => t.id === venue.sections.find((s) => s.id === hoveredId)?.tierId
+          )?.label ?? ""}
+        </div>
+      )}
 
       {/* side panel */}
       <div
@@ -254,7 +313,9 @@ export default function VenueScene({ venueId }: { venueId: string }) {
           fontFamily: "system-ui, sans-serif",
         }}
       >
-        <div style={{ fontSize: 12, opacity: 0.7 }}>{venue.name}（標準舞台）</div>
+        <div style={{ fontSize: 12, opacity: 0.7 }}>
+          {venue.name}（{stageId === "center-stage" ? "中央舞台" : "標準舞台"}）
+        </div>
         {selected ? (
           <>
             <div style={{ fontSize: 24, fontWeight: 700, margin: "4px 0" }}>

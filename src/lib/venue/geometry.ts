@@ -70,6 +70,34 @@ export function buildArcSectionGeometry(
   return out;
 }
 
+/**
+ * Individual seat positions (xyz triplets) for an arc section — one seat per
+ * seatSpacing of arc length, centered on each row's tread.
+ */
+export function arcSeatPositions(
+  tier: Tier,
+  layout: ArcLayout,
+  seatSpacing = 0.5
+): Float32Array {
+  const innerRadius = tier.innerRadius ?? 0;
+  const rowStart = layout.rowStart ?? 0;
+  const rowEnd = layout.rowEnd ?? tier.rowCount;
+  const a0 = layout.startAngle * DEG;
+  const a1 = layout.endAngle * DEG;
+
+  const seats: number[] = [];
+  for (let i = rowStart; i < rowEnd; i++) {
+    const r = innerRadius + (i + 0.5) * tier.rowDepth;
+    const y = tier.baseHeight + i * tier.rowRise;
+    const count = Math.max(1, Math.floor((Math.abs(a1 - a0) * r) / seatSpacing));
+    for (let s = 0; s < count; s++) {
+      const a = a0 + ((a1 - a0) * (s + 0.5)) / count;
+      seats.push(r * Math.cos(a), y, r * Math.sin(a));
+    }
+  }
+  return new Float32Array(seats);
+}
+
 export function polygonCentroid(points: XZ[]): XZ {
   let x = 0;
   let z = 0;

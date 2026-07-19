@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  arcSeatPositions,
   buildArcSectionGeometry,
   polygonCentroid,
   sectionViewpoint,
@@ -86,6 +87,17 @@ describe("sectionViewpoint", () => {
       1.6
     );
     expect(p).toEqual({ x: 5, y: 1.6, z: 5 });
+  });
+
+  it("arcSeatPositions: seats sit on tread centers within the arc", () => {
+    const pos = arcSeatPositions(tier, { ...layout, rowStart: 0, rowEnd: 1 }, 0.5);
+    expect(pos.length % 3).toBe(0);
+    const r = Math.hypot(pos[0], pos[2]);
+    expect(r).toBeCloseTo(tier.innerRadius! + 0.5 * tier.rowDepth);
+    expect(pos[1]).toBeCloseTo(tier.baseHeight);
+    // ~arc length / spacing seats in the row
+    const arc = ((55 - 40) * Math.PI / 180) * r;
+    expect(pos.length / 3).toBe(Math.floor(arc / 0.5));
   });
 
   it("polygonCentroid averages points", () => {
