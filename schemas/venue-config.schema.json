@@ -43,7 +43,8 @@
           "rowDepth": { "type": "number", "description": "Horizontal depth per row (tread), typically 0.8–0.95" },
           "rowRise": { "type": "number", "description": "Vertical rise per row (riser). rowRise/rowDepth = rake angle" },
           "seatSpacing": { "type": "number", "default": 0.5, "description": "Lateral distance between adjacent seats" },
-          "overhangFrom": { "type": "string", "description": "Optional: tier id above this one that visually overhangs it (affects開闊感, 可做遮蔽提示)" }
+          "overhangFrom": { "type": "string", "description": "Optional: tier id above this one that visually overhangs it (affects開闊感, 可做遮蔽提示)" },
+          "seatCount": { "type": "integer", "description": "Approximate total seats in this tier (official figure, for sanity-checking rowCount/section estimates)" }
         }
       }
     },
@@ -83,6 +84,7 @@
             ]
           },
           "priceTier": { "type": "string" },
+          "seatCount": { "type": "integer" },
           "notes": { "type": "string", "description": "Known caveats, e.g. '視線遮蔽區'" }
         }
       }

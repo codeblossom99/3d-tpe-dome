@@ -1,0 +1,15 @@
+{
+  "type": "end",
+  "position": { "x": 0, "z": -45 },
+  "rotation": 0,
+  "footprint": [
+    { "x": -20, "z": -55 }, { "x": 20, "z": -55 }, { "x": 20, "z": -38 }, { "x": -20, "z": -38 }
+  ],
+  "height": 1.5,
+  "extensions": [
+    { "footprint": [ { "x": -2, "z": -38 }, { "x": 2, "z": -38 }, { "x": 2, "z": -18 }, { "x": -2, "z": -18 } ], "height": 1.5 }
+  ],
+  "screens": [
+    { "position": { "x": 0, "y": 15, "z": -50 }, "width": 20, "height": 11, "facing": 90 }
+  ]
+}
