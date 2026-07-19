@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 3D Taipei Dome
+
+[繁體中文](./README.zh-TW.md)
+
+![3D Taipei Dome venue preview](./tpe-demo.png)
+
+An interactive 3D venue map inspired by Taipei Dome. It helps users understand where their seating area is located and explore the venue more intuitively before arriving.
+
+## Features
+
+- Explore the venue in an interactive 3D view
+- Search for and select seating sections
+- Use the minimap to understand each section's location
+- Switch to a point-of-view mode from the selected section
+- Capture and download a screenshot of the current view
 
 ## Getting Started
 
-First, run the development server:
+Install the dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- [Next.js](https://nextjs.org/)
+- [React](https://react.dev/)
+- [Three.js](https://threejs.org/)
+- [React Three Fiber](https://r3f.docs.pmnd.rs/)
 
-## Learn More
+## Disclaimer
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is an unofficial venue visualization created for orientation and demonstration purposes. It is not affiliated with Taipei Dome, and the displayed layout may differ from the actual venue.
