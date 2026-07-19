@@ -242,7 +242,6 @@ export default function VenueScene({
           const tier = venue.tiers.find((t) => t.id === section.tierId);
           if (!tier) return null;
           const props = {
-            key: section.id,
             tier,
             section,
             selected: section.id === selectedId,
@@ -251,9 +250,9 @@ export default function VenueScene({
             onHover: setHoveredId,
           };
           return section.layout.type === "arc" ? (
-            <ArcSection {...props} />
+            <ArcSection key={section.id} {...props} />
           ) : (
-            <FloorSection {...props} />
+            <FloorSection key={section.id} {...props} />
           );
         })}
 
