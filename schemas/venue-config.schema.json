@@ -68,6 +68,7 @@
                   "type": { "const": "arc" },
                   "startAngle": { "type": "number", "description": "Degrees, 0 = +X axis, CCW" },
                   "endAngle": { "type": "number" },
+                  "center": { "$ref": "#/$defs/xz", "description": "Arc center; defaults to venue origin. Floor blocks use the stage position so rows fan outward facing it." },
                   "rowStart": { "type": "integer", "description": "Override: first row index within tier" },
                   "rowEnd": { "type": "integer" }
                 }

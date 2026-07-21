@@ -14,11 +14,12 @@ const TIER_COLORS: Record<string, string> = {
   l5: "#a78bfa",
 };
 
-function arcPath(inner: number, outer: number, a0d: number, a1d: number): string {
+function arcPath(inner: number, outer: number, a0d: number, a1d: number, cx = 0, cz = 0): string {
   const a0 = a0d * DEG;
   const a1 = a1d * DEG;
   const large = Math.abs(a1d - a0d) > 180 ? 1 : 0;
-  const p = (r: number, a: number) => `${(r * Math.cos(a)).toFixed(1)} ${(r * Math.sin(a)).toFixed(1)}`;
+  const p = (r: number, a: number) =>
+    `${(cx + r * Math.cos(a)).toFixed(1)} ${(cz + r * Math.sin(a)).toFixed(1)}`;
   return [
     `M ${p(inner, a0)}`,
     `A ${inner} ${inner} 0 ${large} 1 ${p(inner, a1)}`,
@@ -50,7 +51,11 @@ export default function VenueMinimap({
           const l = s.layout as ArcLayout;
           const inner = (tier.innerRadius ?? 0) + (l.rowStart ?? 0) * tier.rowDepth;
           const outer = (tier.innerRadius ?? 0) + (l.rowEnd ?? tier.rowCount) * tier.rowDepth;
-          return { id: s.id, tierId: s.tierId, d: arcPath(inner, outer, l.startAngle, l.endAngle) };
+          return {
+            id: s.id,
+            tierId: s.tierId,
+            d: arcPath(inner, outer, l.startAngle, l.endAngle, l.center?.x, l.center?.z),
+          };
         }
         const l = s.layout as PolygonLayout;
         const d = `M ${l.points.map((p) => `${p.x} ${p.z}`).join(" L ")} Z`;

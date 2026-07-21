@@ -44,6 +44,8 @@ export interface ArcLayout {
   endAngle: number;
   rowStart?: number;
   rowEnd?: number;
+  /** Arc center. Defaults to venue origin; floor blocks use the stage position so rows fan out facing it. */
+  center?: XZ;
 }
 
 export interface PolygonLayout {
@@ -85,6 +87,8 @@ export interface Stage {
   screens?: StageScreen[];
   /** Section ids not open for this configuration (e.g. behind-stage or floor blocks) */
   closedSections?: string[];
+  /** Extra sections belonging to this configuration (e.g. concert floor blocks laid out around the stage) */
+  sections?: Section[];
 }
 
 export interface Obstruction {

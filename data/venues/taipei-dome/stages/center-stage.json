@@ -1,16 +1,245 @@
 {
   "type": "center",
-  "position": { "x": 0, "z": 0 },
+  "position": {
+    "x": 0,
+    "z": 0
+  },
   "rotation": 0,
   "footprint": [
-    { "x": -12, "z": -12 }, { "x": 12, "z": -12 }, { "x": 12, "z": 12 }, { "x": -12, "z": 12 }
+    {
+      "x": -12,
+      "z": -12
+    },
+    {
+      "x": 12,
+      "z": -12
+    },
+    {
+      "x": 12,
+      "z": 12
+    },
+    {
+      "x": -12,
+      "z": 12
+    }
   ],
   "height": 1.5,
   "extensions": [
-    { "footprint": [ { "x": 12, "z": -2 }, { "x": 35, "z": -2 }, { "x": 35, "z": 2 }, { "x": 12, "z": 2 } ], "height": 1.5 }
+    {
+      "footprint": [
+        {
+          "x": 12,
+          "z": -2
+        },
+        {
+          "x": 35,
+          "z": -2
+        },
+        {
+          "x": 35,
+          "z": 2
+        },
+        {
+          "x": 12,
+          "z": 2
+        }
+      ],
+      "height": 1.5
+    }
   ],
   "screens": [
-    { "position": { "x": 0, "y": 20, "z": 0 }, "width": 16, "height": 9, "facing": 0 }
+    {
+      "position": {
+        "x": 0,
+        "y": 20,
+        "z": 0
+      },
+      "width": 16,
+      "height": 9,
+      "facing": 0
+    }
   ],
-  "closedSections": []
+  "closedSections": [],
+  "sections": [
+    {
+      "id": "A",
+      "tierId": "floor",
+      "layout": {
+        "type": "arc",
+        "center": {
+          "x": 0,
+          "z": 0
+        },
+        "startAngle": 0.0,
+        "endAngle": 30.0,
+        "rowStart": 5,
+        "rowEnd": 35
+      }
+    },
+    {
+      "id": "B",
+      "tierId": "floor",
+      "layout": {
+        "type": "arc",
+        "center": {
+          "x": 0,
+          "z": 0
+        },
+        "startAngle": 30.0,
+        "endAngle": 60.0,
+        "rowStart": 5,
+        "rowEnd": 35
+      }
+    },
+    {
+      "id": "C",
+      "tierId": "floor",
+      "layout": {
+        "type": "arc",
+        "center": {
+          "x": 0,
+          "z": 0
+        },
+        "startAngle": 60.0,
+        "endAngle": 90.0,
+        "rowStart": 5,
+        "rowEnd": 35
+      }
+    },
+    {
+      "id": "D",
+      "tierId": "floor",
+      "layout": {
+        "type": "arc",
+        "center": {
+          "x": 0,
+          "z": 0
+        },
+        "startAngle": 90.0,
+        "endAngle": 120.0,
+        "rowStart": 5,
+        "rowEnd": 35
+      }
+    },
+    {
+      "id": "E",
+      "tierId": "floor",
+      "layout": {
+        "type": "arc",
+        "center": {
+          "x": 0,
+          "z": 0
+        },
+        "startAngle": 120.0,
+        "endAngle": 150.0,
+        "rowStart": 5,
+        "rowEnd": 35
+      }
+    },
+    {
+      "id": "F",
+      "tierId": "floor",
+      "layout": {
+        "type": "arc",
+        "center": {
+          "x": 0,
+          "z": 0
+        },
+        "startAngle": 150.0,
+        "endAngle": 180.0,
+        "rowStart": 5,
+        "rowEnd": 35
+      }
+    },
+    {
+      "id": "G",
+      "tierId": "floor",
+      "layout": {
+        "type": "arc",
+        "center": {
+          "x": 0,
+          "z": 0
+        },
+        "startAngle": 180.0,
+        "endAngle": 210.0,
+        "rowStart": 5,
+        "rowEnd": 35
+      }
+    },
+    {
+      "id": "H",
+      "tierId": "floor",
+      "layout": {
+        "type": "arc",
+        "center": {
+          "x": 0,
+          "z": 0
+        },
+        "startAngle": 210.0,
+        "endAngle": 240.0,
+        "rowStart": 5,
+        "rowEnd": 35
+      }
+    },
+    {
+      "id": "I",
+      "tierId": "floor",
+      "layout": {
+        "type": "arc",
+        "center": {
+          "x": 0,
+          "z": 0
+        },
+        "startAngle": 240.0,
+        "endAngle": 270.0,
+        "rowStart": 5,
+        "rowEnd": 35
+      }
+    },
+    {
+      "id": "J",
+      "tierId": "floor",
+      "layout": {
+        "type": "arc",
+        "center": {
+          "x": 0,
+          "z": 0
+        },
+        "startAngle": 270.0,
+        "endAngle": 300.0,
+        "rowStart": 5,
+        "rowEnd": 35
+      }
+    },
+    {
+      "id": "K",
+      "tierId": "floor",
+      "layout": {
+        "type": "arc",
+        "center": {
+          "x": 0,
+          "z": 0
+        },
+        "startAngle": 300.0,
+        "endAngle": 330.0,
+        "rowStart": 5,
+        "rowEnd": 35
+      }
+    },
+    {
+      "id": "L",
+      "tierId": "floor",
+      "layout": {
+        "type": "arc",
+        "center": {
+          "x": 0,
+          "z": 0
+        },
+        "startAngle": 330.0,
+        "endAngle": 360.0,
+        "rowStart": 5,
+        "rowEnd": 35
+      }
+    }
+  ]
 }

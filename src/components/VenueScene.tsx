@@ -198,10 +198,17 @@ export default function VenueScene({
 }) {
   const fullVenue = useMemo(() => loadVenue(venueId), [venueId]);
   const stage = useMemo(() => loadStage(venueId, stageId), [venueId, stageId]);
-  // this configuration's open sections only (closed = behind stage / floor during baseball)
+  // this configuration's sections: venue stands minus closed ones, plus the
+  // stage config's own floor blocks (laid out around its stage position)
   const venue = useMemo(() => {
     const closed = new Set(stage.closedSections ?? []);
-    return { ...fullVenue, sections: fullVenue.sections.filter((s) => !closed.has(s.id)) };
+    return {
+      ...fullVenue,
+      sections: [
+        ...fullVenue.sections.filter((s) => !closed.has(s.id)),
+        ...(stage.sections ?? []),
+      ],
+    };
   }, [fullVenue, stage]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);

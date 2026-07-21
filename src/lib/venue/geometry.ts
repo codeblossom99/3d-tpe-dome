@@ -44,10 +44,12 @@ export function buildArcSectionGeometry(
     push(d[0], d[1], d[2]);
   };
 
+  const cx = layout.center?.x ?? 0;
+  const cz = layout.center?.z ?? 0;
   const at = (r: number, y: number, angle: number) => [
-    r * Math.cos(angle),
+    cx + r * Math.cos(angle),
     y,
-    r * Math.sin(angle),
+    cz + r * Math.sin(angle),
   ];
 
   for (let i = rowStart; i < rowEnd; i++) {
@@ -85,6 +87,8 @@ export function arcSeatPositions(
   const a0 = layout.startAngle * DEG;
   const a1 = layout.endAngle * DEG;
 
+  const cx = layout.center?.x ?? 0;
+  const cz = layout.center?.z ?? 0;
   const seats: number[] = [];
   for (let i = rowStart; i < rowEnd; i++) {
     const r = innerRadius + (i + 0.5) * tier.rowDepth;
@@ -92,7 +96,7 @@ export function arcSeatPositions(
     const count = Math.max(1, Math.floor((Math.abs(a1 - a0) * r) / seatSpacing));
     for (let s = 0; s < count; s++) {
       const a = a0 + ((a1 - a0) * (s + 0.5)) / count;
-      seats.push(r * Math.cos(a), y, r * Math.sin(a));
+      seats.push(cx + r * Math.cos(a), y, cz + r * Math.sin(a));
     }
   }
   return new Float32Array(seats);
@@ -130,5 +134,7 @@ export function sectionViewpoint(
   const r = (tier.innerRadius ?? 0) + midRow * tier.rowDepth;
   const y = tier.baseHeight + midRow * tier.rowRise + eyeHeight;
   const a = ((layout.startAngle + layout.endAngle) / 2) * (Math.PI / 180);
-  return { x: r * Math.cos(a), y, z: r * Math.sin(a) };
+  const cx = layout.center?.x ?? 0;
+  const cz = layout.center?.z ?? 0;
+  return { x: cx + r * Math.cos(a), y, z: cz + r * Math.sin(a) };
 }
