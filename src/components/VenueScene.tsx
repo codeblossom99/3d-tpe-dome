@@ -466,10 +466,11 @@ export default function VenueScene({
             pointerEvents: "none",
           }}
         >
-          {hoveredId} 區 ·{" "}
-          {venue.tiers.find(
-            (t) => t.id === venue.sections.find((s) => s.id === hoveredId)?.tierId
-          )?.label ?? ""}
+          {(() => {
+            const s = venue.sections.find((x) => x.id === hoveredId);
+            const t = venue.tiers.find((x) => x.id === s?.tierId);
+            return s?.label ?? `${hoveredId} 區 · ${t?.label ?? ""}`;
+          })()}
         </div>
       )}
 

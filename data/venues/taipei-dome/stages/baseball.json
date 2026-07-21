@@ -1,4 +1,426 @@
 {
   "type": "custom",
-  "closedSections": []
+  "closedSections": [
+    "101",
+    "104",
+    "105",
+    "106",
+    "108",
+    "109",
+    "110",
+    "112",
+    "113",
+    "114",
+    "116",
+    "117",
+    "118",
+    "120",
+    "121",
+    "122",
+    "125",
+    "126",
+    "127",
+    "128",
+    "129",
+    "130",
+    "138",
+    "139",
+    "201",
+    "202",
+    "203",
+    "212",
+    "213",
+    "214",
+    "225",
+    "226",
+    "227",
+    "228",
+    "229",
+    "230",
+    "231",
+    "232",
+    "238",
+    "239",
+    "301",
+    "302",
+    "303",
+    "304",
+    "305",
+    "306",
+    "307",
+    "308",
+    "309",
+    "310",
+    "311",
+    "312",
+    "313",
+    "314",
+    "315",
+    "316",
+    "317",
+    "501",
+    "502"
+  ],
+  "sections": [
+    {
+      "id": "104f",
+      "label": "B1內野104區前排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 11.74,
+        "endAngle": 19.57,
+        "rowStart": 0,
+        "rowEnd": 10
+      }
+    },
+    {
+      "id": "104b",
+      "label": "B1內野104區後排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 11.74,
+        "endAngle": 19.57,
+        "rowStart": 10,
+        "rowEnd": 20
+      }
+    },
+    {
+      "id": "105f",
+      "label": "B1內野105區前排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 19.57,
+        "endAngle": 27.39,
+        "rowStart": 0,
+        "rowEnd": 10
+      }
+    },
+    {
+      "id": "105b",
+      "label": "B1內野105區後排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 19.57,
+        "endAngle": 27.39,
+        "rowStart": 10,
+        "rowEnd": 20
+      }
+    },
+    {
+      "id": "106f",
+      "label": "B1內野106區前排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 27.39,
+        "endAngle": 35.22,
+        "rowStart": 0,
+        "rowEnd": 10
+      }
+    },
+    {
+      "id": "106b",
+      "label": "B1內野106區後排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 27.39,
+        "endAngle": 35.22,
+        "rowStart": 10,
+        "rowEnd": 20
+      }
+    },
+    {
+      "id": "108f",
+      "label": "B1內野108區前排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 43.04,
+        "endAngle": 50.87,
+        "rowStart": 0,
+        "rowEnd": 10
+      }
+    },
+    {
+      "id": "108b",
+      "label": "B1內野108區後排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 43.04,
+        "endAngle": 50.87,
+        "rowStart": 10,
+        "rowEnd": 20
+      }
+    },
+    {
+      "id": "109f",
+      "label": "B1內野109區前排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 50.87,
+        "endAngle": 58.7,
+        "rowStart": 0,
+        "rowEnd": 10
+      }
+    },
+    {
+      "id": "109b",
+      "label": "B1內野109區後排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 50.87,
+        "endAngle": 58.7,
+        "rowStart": 10,
+        "rowEnd": 20
+      }
+    },
+    {
+      "id": "110f",
+      "label": "B1內野110區前排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 58.7,
+        "endAngle": 66.52,
+        "rowStart": 0,
+        "rowEnd": 10
+      }
+    },
+    {
+      "id": "110b",
+      "label": "B1內野110區後排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 58.7,
+        "endAngle": 66.52,
+        "rowStart": 10,
+        "rowEnd": 20
+      }
+    },
+    {
+      "id": "112f",
+      "label": "B1內野112區前排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 74.35,
+        "endAngle": 82.17,
+        "rowStart": 0,
+        "rowEnd": 10
+      }
+    },
+    {
+      "id": "112b",
+      "label": "B1內野112區後排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 74.35,
+        "endAngle": 82.17,
+        "rowStart": 10,
+        "rowEnd": 20
+      }
+    },
+    {
+      "id": "113f",
+      "label": "B1內野113區前排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 82.17,
+        "endAngle": 90.0,
+        "rowStart": 0,
+        "rowEnd": 10
+      }
+    },
+    {
+      "id": "113b",
+      "label": "B1內野113區後排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 82.17,
+        "endAngle": 90.0,
+        "rowStart": 10,
+        "rowEnd": 20
+      }
+    },
+    {
+      "id": "114f",
+      "label": "B1內野114區前排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 90.0,
+        "endAngle": 97.83,
+        "rowStart": 0,
+        "rowEnd": 10
+      }
+    },
+    {
+      "id": "114b",
+      "label": "B1內野114區後排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 90.0,
+        "endAngle": 97.83,
+        "rowStart": 10,
+        "rowEnd": 20
+      }
+    },
+    {
+      "id": "116f",
+      "label": "B1內野116區前排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 105.65,
+        "endAngle": 113.48,
+        "rowStart": 0,
+        "rowEnd": 10
+      }
+    },
+    {
+      "id": "116b",
+      "label": "B1內野116區後排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 105.65,
+        "endAngle": 113.48,
+        "rowStart": 10,
+        "rowEnd": 20
+      }
+    },
+    {
+      "id": "117f",
+      "label": "B1內野117區前排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 113.48,
+        "endAngle": 121.3,
+        "rowStart": 0,
+        "rowEnd": 10
+      }
+    },
+    {
+      "id": "117b",
+      "label": "B1內野117區後排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 113.48,
+        "endAngle": 121.3,
+        "rowStart": 10,
+        "rowEnd": 20
+      }
+    },
+    {
+      "id": "118f",
+      "label": "B1內野118區前排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 121.3,
+        "endAngle": 129.13,
+        "rowStart": 0,
+        "rowEnd": 10
+      }
+    },
+    {
+      "id": "118b",
+      "label": "B1內野118區後排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 121.3,
+        "endAngle": 129.13,
+        "rowStart": 10,
+        "rowEnd": 20
+      }
+    },
+    {
+      "id": "120f",
+      "label": "B1內野120區前排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 136.96,
+        "endAngle": 144.78,
+        "rowStart": 0,
+        "rowEnd": 10
+      }
+    },
+    {
+      "id": "120b",
+      "label": "B1內野120區後排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 136.96,
+        "endAngle": 144.78,
+        "rowStart": 10,
+        "rowEnd": 20
+      }
+    },
+    {
+      "id": "121f",
+      "label": "B1內野121區前排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 144.78,
+        "endAngle": 152.61,
+        "rowStart": 0,
+        "rowEnd": 10
+      }
+    },
+    {
+      "id": "121b",
+      "label": "B1內野121區後排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 144.78,
+        "endAngle": 152.61,
+        "rowStart": 10,
+        "rowEnd": 20
+      }
+    },
+    {
+      "id": "122f",
+      "label": "B1內野122區前排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 152.61,
+        "endAngle": 160.43,
+        "rowStart": 0,
+        "rowEnd": 10
+      }
+    },
+    {
+      "id": "122b",
+      "label": "B1內野122區後排",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 152.61,
+        "endAngle": 160.43,
+        "rowStart": 10,
+        "rowEnd": 20
+      }
+    }
+  ]
 }
