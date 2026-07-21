@@ -7,9 +7,11 @@ const DEG = Math.PI / 180;
 
 const TIER_COLORS: Record<string, string> = {
   floor: "#4ade80",
-  lower: "#60a5fa",
-  middle: "#fbbf24",
-  upper: "#a78bfa",
+  b1: "#60a5fa",
+  l2: "#fbbf24",
+  l3: "#f87171",
+  l4: "#f9a8d4",
+  l5: "#a78bfa",
 };
 
 function arcPath(inner: number, outer: number, a0d: number, a1d: number): string {

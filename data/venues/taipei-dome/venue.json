@@ -2,136 +2,1852 @@
   "id": "taipei-dome",
   "name": "台北大巨蛋",
   "units": "meters",
-
-  "field": { "shape": "ellipse", "radiusX": 60, "radiusZ": 55 },
-
+  "field": {
+    "shape": "ellipse",
+    "radiusX": 60,
+    "radiusZ": 55
+  },
   "tiers": [
-    { "id": "floor", "label": "內野地面區", "baseHeight": 0, "rowCount": 1, "rowDepth": 0.85, "rowRise": 0 },
-    { "id": "lower", "label": "下層看台 (1xx/2xx)", "baseHeight": 2, "innerRadius": 62, "rowCount": 34, "rowDepth": 0.85, "rowRise": 0.38, "seatCount": 17124, "overhangFrom": "middle" },
-    { "id": "middle", "label": "中層看台 (3xx/4xx)", "baseHeight": 16, "innerRadius": 68, "rowCount": 19, "rowDepth": 0.85, "rowRise": 0.45, "seatCount": 14063, "overhangFrom": "upper" },
-    { "id": "upper", "label": "上層看台 (5xx)", "baseHeight": 26, "innerRadius": 72, "rowCount": 8, "rowDepth": 0.85, "rowRise": 0.5, "seatCount": 2252 }
+    {
+      "id": "floor",
+      "label": "內野地面區（演唱會）",
+      "baseHeight": 0,
+      "rowCount": 1,
+      "rowDepth": 0.85,
+      "rowRise": 0
+    },
+    {
+      "id": "b1",
+      "label": "B1 內野/外野 (1xx)",
+      "baseHeight": 2,
+      "innerRadius": 62,
+      "rowCount": 20,
+      "rowDepth": 0.85,
+      "rowRise": 0.38,
+      "overhangFrom": "l3"
+    },
+    {
+      "id": "l2",
+      "label": "L2 看台 (2xx)",
+      "baseHeight": 9.6,
+      "innerRadius": 79,
+      "rowCount": 14,
+      "rowDepth": 0.85,
+      "rowRise": 0.38,
+      "overhangFrom": "l3"
+    },
+    {
+      "id": "l3",
+      "label": "L3 看台 (3xx)",
+      "baseHeight": 16,
+      "innerRadius": 68,
+      "rowCount": 12,
+      "rowDepth": 0.85,
+      "rowRise": 0.45,
+      "overhangFrom": "l4"
+    },
+    {
+      "id": "l4",
+      "label": "L4 看台 (4xx)",
+      "baseHeight": 22,
+      "innerRadius": 72,
+      "rowCount": 7,
+      "rowDepth": 0.85,
+      "rowRise": 0.5,
+      "overhangFrom": "l5"
+    },
+    {
+      "id": "l5",
+      "label": "L5 看台 (5xx)",
+      "baseHeight": 28,
+      "innerRadius": 74,
+      "rowCount": 8,
+      "rowDepth": 0.85,
+      "rowRise": 0.55
+    }
   ],
-
   "sections": [
-    { "id": "102", "tierId": "lower", "layout": { "type": "arc", "startAngle": -62.0, "endAngle": -48.78, "rowStart": 0, "rowEnd": 20 } },
-    { "id": "103", "tierId": "lower", "layout": { "type": "arc", "startAngle": -48.78, "endAngle": -35.57, "rowStart": 0, "rowEnd": 20 } },
-    { "id": "104", "tierId": "lower", "layout": { "type": "arc", "startAngle": -35.57, "endAngle": -22.35, "rowStart": 0, "rowEnd": 20 } },
-    { "id": "105", "tierId": "lower", "layout": { "type": "arc", "startAngle": -22.35, "endAngle": -9.13, "rowStart": 0, "rowEnd": 20 } },
-    { "id": "106", "tierId": "lower", "layout": { "type": "arc", "startAngle": -9.13, "endAngle": 4.09, "rowStart": 0, "rowEnd": 20 } },
-    { "id": "107", "tierId": "lower", "layout": { "type": "arc", "startAngle": 4.09, "endAngle": 17.3, "rowStart": 0, "rowEnd": 20 } },
-    { "id": "108", "tierId": "lower", "layout": { "type": "arc", "startAngle": 17.3, "endAngle": 30.52, "rowStart": 0, "rowEnd": 20 } },
-    { "id": "109", "tierId": "lower", "layout": { "type": "arc", "startAngle": 30.52, "endAngle": 43.74, "rowStart": 0, "rowEnd": 20 } },
-    { "id": "110", "tierId": "lower", "layout": { "type": "arc", "startAngle": 43.74, "endAngle": 56.96, "rowStart": 0, "rowEnd": 20 } },
-    { "id": "111", "tierId": "lower", "layout": { "type": "arc", "startAngle": 56.96, "endAngle": 70.17, "rowStart": 0, "rowEnd": 20 } },
-    { "id": "112", "tierId": "lower", "layout": { "type": "arc", "startAngle": 70.17, "endAngle": 83.39, "rowStart": 0, "rowEnd": 20 } },
-    { "id": "113", "tierId": "lower", "layout": { "type": "arc", "startAngle": 83.39, "endAngle": 96.61, "rowStart": 0, "rowEnd": 20 } },
-    { "id": "114", "tierId": "lower", "layout": { "type": "arc", "startAngle": 96.61, "endAngle": 109.83, "rowStart": 0, "rowEnd": 20 } },
-    { "id": "115", "tierId": "lower", "layout": { "type": "arc", "startAngle": 109.83, "endAngle": 123.04, "rowStart": 0, "rowEnd": 20 } },
-    { "id": "116", "tierId": "lower", "layout": { "type": "arc", "startAngle": 123.04, "endAngle": 136.26, "rowStart": 0, "rowEnd": 20 } },
-    { "id": "117", "tierId": "lower", "layout": { "type": "arc", "startAngle": 136.26, "endAngle": 149.48, "rowStart": 0, "rowEnd": 20 } },
-    { "id": "118", "tierId": "lower", "layout": { "type": "arc", "startAngle": 149.48, "endAngle": 162.7, "rowStart": 0, "rowEnd": 20 } },
-    { "id": "119", "tierId": "lower", "layout": { "type": "arc", "startAngle": 162.7, "endAngle": 175.91, "rowStart": 0, "rowEnd": 20 } },
-    { "id": "120", "tierId": "lower", "layout": { "type": "arc", "startAngle": 175.91, "endAngle": 189.13, "rowStart": 0, "rowEnd": 20 } },
-    { "id": "121", "tierId": "lower", "layout": { "type": "arc", "startAngle": 189.13, "endAngle": 202.35, "rowStart": 0, "rowEnd": 20 } },
-    { "id": "122", "tierId": "lower", "layout": { "type": "arc", "startAngle": 202.35, "endAngle": 215.57, "rowStart": 0, "rowEnd": 20 } },
-    { "id": "123", "tierId": "lower", "layout": { "type": "arc", "startAngle": 215.57, "endAngle": 228.78, "rowStart": 0, "rowEnd": 20 } },
-    { "id": "124", "tierId": "lower", "layout": { "type": "arc", "startAngle": 228.78, "endAngle": 242.0, "rowStart": 0, "rowEnd": 20 } },
-    { "id": "202", "tierId": "lower", "layout": { "type": "arc", "startAngle": -62.0, "endAngle": -48.78, "rowStart": 20, "rowEnd": 34 } },
-    { "id": "203", "tierId": "lower", "layout": { "type": "arc", "startAngle": -48.78, "endAngle": -35.57, "rowStart": 20, "rowEnd": 34 }, "notes": "視線遮蔽風險：鄰近結構柱 col-1（示意）" },
-    { "id": "204", "tierId": "lower", "layout": { "type": "arc", "startAngle": -35.57, "endAngle": -22.35, "rowStart": 20, "rowEnd": 34 } },
-    { "id": "205", "tierId": "lower", "layout": { "type": "arc", "startAngle": -22.35, "endAngle": -9.13, "rowStart": 20, "rowEnd": 34 } },
-    { "id": "206", "tierId": "lower", "layout": { "type": "arc", "startAngle": -9.13, "endAngle": 4.09, "rowStart": 20, "rowEnd": 34 } },
-    { "id": "207", "tierId": "lower", "layout": { "type": "arc", "startAngle": 4.09, "endAngle": 17.3, "rowStart": 20, "rowEnd": 34 } },
-    { "id": "208", "tierId": "lower", "layout": { "type": "arc", "startAngle": 17.3, "endAngle": 30.52, "rowStart": 20, "rowEnd": 34 } },
-    { "id": "209", "tierId": "lower", "layout": { "type": "arc", "startAngle": 30.52, "endAngle": 43.74, "rowStart": 20, "rowEnd": 34 } },
-    { "id": "210", "tierId": "lower", "layout": { "type": "arc", "startAngle": 43.74, "endAngle": 56.96, "rowStart": 20, "rowEnd": 34 } },
-    { "id": "211", "tierId": "lower", "layout": { "type": "arc", "startAngle": 56.96, "endAngle": 70.17, "rowStart": 20, "rowEnd": 34 } },
-    { "id": "212", "tierId": "lower", "layout": { "type": "arc", "startAngle": 70.17, "endAngle": 83.39, "rowStart": 20, "rowEnd": 34 } },
-    { "id": "213", "tierId": "lower", "layout": { "type": "arc", "startAngle": 83.39, "endAngle": 96.61, "rowStart": 20, "rowEnd": 34 } },
-    { "id": "214", "tierId": "lower", "layout": { "type": "arc", "startAngle": 96.61, "endAngle": 109.83, "rowStart": 20, "rowEnd": 34 } },
-    { "id": "215", "tierId": "lower", "layout": { "type": "arc", "startAngle": 109.83, "endAngle": 123.04, "rowStart": 20, "rowEnd": 34 } },
-    { "id": "216", "tierId": "lower", "layout": { "type": "arc", "startAngle": 123.04, "endAngle": 136.26, "rowStart": 20, "rowEnd": 34 } },
-    { "id": "217", "tierId": "lower", "layout": { "type": "arc", "startAngle": 136.26, "endAngle": 149.48, "rowStart": 20, "rowEnd": 34 } },
-    { "id": "218", "tierId": "lower", "layout": { "type": "arc", "startAngle": 149.48, "endAngle": 162.7, "rowStart": 20, "rowEnd": 34 } },
-    { "id": "219", "tierId": "lower", "layout": { "type": "arc", "startAngle": 162.7, "endAngle": 175.91, "rowStart": 20, "rowEnd": 34 } },
-    { "id": "220", "tierId": "lower", "layout": { "type": "arc", "startAngle": 175.91, "endAngle": 189.13, "rowStart": 20, "rowEnd": 34 } },
-    { "id": "221", "tierId": "lower", "layout": { "type": "arc", "startAngle": 189.13, "endAngle": 202.35, "rowStart": 20, "rowEnd": 34 } },
-    { "id": "222", "tierId": "lower", "layout": { "type": "arc", "startAngle": 202.35, "endAngle": 215.57, "rowStart": 20, "rowEnd": 34 } },
-    { "id": "223", "tierId": "lower", "layout": { "type": "arc", "startAngle": 215.57, "endAngle": 228.78, "rowStart": 20, "rowEnd": 34 } },
-    { "id": "224", "tierId": "lower", "layout": { "type": "arc", "startAngle": 228.78, "endAngle": 242.0, "rowStart": 20, "rowEnd": 34 } },
-    { "id": "301", "tierId": "middle", "layout": { "type": "arc", "startAngle": -55.0, "endAngle": -37.94, "rowStart": 0, "rowEnd": 12 } },
-    { "id": "302", "tierId": "middle", "layout": { "type": "arc", "startAngle": -37.94, "endAngle": -20.88, "rowStart": 0, "rowEnd": 12 } },
-    { "id": "303", "tierId": "middle", "layout": { "type": "arc", "startAngle": -20.88, "endAngle": -3.82, "rowStart": 0, "rowEnd": 12 } },
-    { "id": "304", "tierId": "middle", "layout": { "type": "arc", "startAngle": -3.82, "endAngle": 13.24, "rowStart": 0, "rowEnd": 12 } },
-    { "id": "305", "tierId": "middle", "layout": { "type": "arc", "startAngle": 13.24, "endAngle": 30.29, "rowStart": 0, "rowEnd": 12 } },
-    { "id": "306", "tierId": "middle", "layout": { "type": "arc", "startAngle": 30.29, "endAngle": 47.35, "rowStart": 0, "rowEnd": 12 } },
-    { "id": "307", "tierId": "middle", "layout": { "type": "arc", "startAngle": 47.35, "endAngle": 64.41, "rowStart": 0, "rowEnd": 12 } },
-    { "id": "308", "tierId": "middle", "layout": { "type": "arc", "startAngle": 64.41, "endAngle": 81.47, "rowStart": 0, "rowEnd": 12 } },
-    { "id": "309", "tierId": "middle", "layout": { "type": "arc", "startAngle": 81.47, "endAngle": 98.53, "rowStart": 0, "rowEnd": 12 } },
-    { "id": "310", "tierId": "middle", "layout": { "type": "arc", "startAngle": 98.53, "endAngle": 115.59, "rowStart": 0, "rowEnd": 12 } },
-    { "id": "311", "tierId": "middle", "layout": { "type": "arc", "startAngle": 115.59, "endAngle": 132.65, "rowStart": 0, "rowEnd": 12 } },
-    { "id": "312", "tierId": "middle", "layout": { "type": "arc", "startAngle": 132.65, "endAngle": 149.71, "rowStart": 0, "rowEnd": 12 } },
-    { "id": "313", "tierId": "middle", "layout": { "type": "arc", "startAngle": 149.71, "endAngle": 166.76, "rowStart": 0, "rowEnd": 12 } },
-    { "id": "314", "tierId": "middle", "layout": { "type": "arc", "startAngle": 166.76, "endAngle": 183.82, "rowStart": 0, "rowEnd": 12 } },
-    { "id": "315", "tierId": "middle", "layout": { "type": "arc", "startAngle": 183.82, "endAngle": 200.88, "rowStart": 0, "rowEnd": 12 } },
-    { "id": "316", "tierId": "middle", "layout": { "type": "arc", "startAngle": 200.88, "endAngle": 217.94, "rowStart": 0, "rowEnd": 12 } },
-    { "id": "317", "tierId": "middle", "layout": { "type": "arc", "startAngle": 217.94, "endAngle": 235.0, "rowStart": 0, "rowEnd": 12 } },
-    { "id": "401", "tierId": "middle", "layout": { "type": "arc", "startAngle": -55.0, "endAngle": -37.94, "rowStart": 12, "rowEnd": 19 } },
-    { "id": "402", "tierId": "middle", "layout": { "type": "arc", "startAngle": -37.94, "endAngle": -20.88, "rowStart": 12, "rowEnd": 19 } },
-    { "id": "403", "tierId": "middle", "layout": { "type": "arc", "startAngle": -20.88, "endAngle": -3.82, "rowStart": 12, "rowEnd": 19 } },
-    { "id": "404", "tierId": "middle", "layout": { "type": "arc", "startAngle": -3.82, "endAngle": 13.24, "rowStart": 12, "rowEnd": 19 } },
-    { "id": "405", "tierId": "middle", "layout": { "type": "arc", "startAngle": 13.24, "endAngle": 30.29, "rowStart": 12, "rowEnd": 19 } },
-    { "id": "406", "tierId": "middle", "layout": { "type": "arc", "startAngle": 30.29, "endAngle": 47.35, "rowStart": 12, "rowEnd": 19 } },
-    { "id": "407", "tierId": "middle", "layout": { "type": "arc", "startAngle": 47.35, "endAngle": 64.41, "rowStart": 12, "rowEnd": 19 } },
-    { "id": "408", "tierId": "middle", "layout": { "type": "arc", "startAngle": 64.41, "endAngle": 81.47, "rowStart": 12, "rowEnd": 19 } },
-    { "id": "409", "tierId": "middle", "layout": { "type": "arc", "startAngle": 81.47, "endAngle": 98.53, "rowStart": 12, "rowEnd": 19 } },
-    { "id": "410", "tierId": "middle", "layout": { "type": "arc", "startAngle": 98.53, "endAngle": 115.59, "rowStart": 12, "rowEnd": 19 } },
-    { "id": "411", "tierId": "middle", "layout": { "type": "arc", "startAngle": 115.59, "endAngle": 132.65, "rowStart": 12, "rowEnd": 19 } },
-    { "id": "412", "tierId": "middle", "layout": { "type": "arc", "startAngle": 132.65, "endAngle": 149.71, "rowStart": 12, "rowEnd": 19 } },
-    { "id": "413", "tierId": "middle", "layout": { "type": "arc", "startAngle": 149.71, "endAngle": 166.76, "rowStart": 12, "rowEnd": 19 } },
-    { "id": "414", "tierId": "middle", "layout": { "type": "arc", "startAngle": 166.76, "endAngle": 183.82, "rowStart": 12, "rowEnd": 19 } },
-    { "id": "415", "tierId": "middle", "layout": { "type": "arc", "startAngle": 183.82, "endAngle": 200.88, "rowStart": 12, "rowEnd": 19 } },
-    { "id": "416", "tierId": "middle", "layout": { "type": "arc", "startAngle": 200.88, "endAngle": 217.94, "rowStart": 12, "rowEnd": 19 } },
-    { "id": "417", "tierId": "middle", "layout": { "type": "arc", "startAngle": 217.94, "endAngle": 235.0, "rowStart": 12, "rowEnd": 19 } },
-    { "id": "501", "tierId": "upper", "layout": { "type": "arc", "startAngle": -30.0, "endAngle": -12.86 } },
-    { "id": "502", "tierId": "upper", "layout": { "type": "arc", "startAngle": -12.86, "endAngle": 4.29 } },
-    { "id": "503", "tierId": "upper", "layout": { "type": "arc", "startAngle": 4.29, "endAngle": 21.43 } },
-    { "id": "504", "tierId": "upper", "layout": { "type": "arc", "startAngle": 21.43, "endAngle": 38.57 } },
-    { "id": "505", "tierId": "upper", "layout": { "type": "arc", "startAngle": 38.57, "endAngle": 55.71 } },
-    { "id": "506", "tierId": "upper", "layout": { "type": "arc", "startAngle": 55.71, "endAngle": 72.86 } },
-    { "id": "507", "tierId": "upper", "layout": { "type": "arc", "startAngle": 72.86, "endAngle": 90.0 } },
-    { "id": "508", "tierId": "upper", "layout": { "type": "arc", "startAngle": 90.0, "endAngle": 107.14 } },
-    { "id": "509", "tierId": "upper", "layout": { "type": "arc", "startAngle": 107.14, "endAngle": 124.29 } },
-    { "id": "510", "tierId": "upper", "layout": { "type": "arc", "startAngle": 124.29, "endAngle": 141.43 } },
-    { "id": "511", "tierId": "upper", "layout": { "type": "arc", "startAngle": 141.43, "endAngle": 158.57 } },
-    { "id": "512", "tierId": "upper", "layout": { "type": "arc", "startAngle": 158.57, "endAngle": 175.71 } },
-    { "id": "513", "tierId": "upper", "layout": { "type": "arc", "startAngle": 175.71, "endAngle": 192.86 } },
-    { "id": "514", "tierId": "upper", "layout": { "type": "arc", "startAngle": 192.86, "endAngle": 210.0 } },
-    { "id": "A", "tierId": "floor", "layout": { "type": "polygon", "rowDirection": 270, "points": [ { "x": -29, "z": -28 }, { "x": -21, "z": -28 }, { "x": -21, "z": -16 }, { "x": -29, "z": -16 } ] } },
-    { "id": "B", "tierId": "floor", "layout": { "type": "polygon", "rowDirection": 270, "points": [ { "x": -19, "z": -28 }, { "x": -11, "z": -28 }, { "x": -11, "z": -16 }, { "x": -19, "z": -16 } ] } },
-    { "id": "C", "tierId": "floor", "layout": { "type": "polygon", "rowDirection": 270, "points": [ { "x": -9, "z": -28 }, { "x": -1, "z": -28 }, { "x": -1, "z": -16 }, { "x": -9, "z": -16 } ] } },
-    { "id": "D", "tierId": "floor", "layout": { "type": "polygon", "rowDirection": 270, "points": [ { "x": 1, "z": -28 }, { "x": 9, "z": -28 }, { "x": 9, "z": -16 }, { "x": 1, "z": -16 } ] } },
-    { "id": "E", "tierId": "floor", "layout": { "type": "polygon", "rowDirection": 270, "points": [ { "x": 11, "z": -28 }, { "x": 19, "z": -28 }, { "x": 19, "z": -16 }, { "x": 11, "z": -16 } ] } },
-    { "id": "F", "tierId": "floor", "layout": { "type": "polygon", "rowDirection": 270, "points": [ { "x": 21, "z": -28 }, { "x": 29, "z": -28 }, { "x": 29, "z": -16 }, { "x": 21, "z": -16 } ] } },
-    { "id": "G", "tierId": "floor", "layout": { "type": "polygon", "rowDirection": 270, "points": [ { "x": -29, "z": -14 }, { "x": -21, "z": -14 }, { "x": -21, "z": -2 }, { "x": -29, "z": -2 } ] } },
-    { "id": "H", "tierId": "floor", "layout": { "type": "polygon", "rowDirection": 270, "points": [ { "x": -19, "z": -14 }, { "x": -11, "z": -14 }, { "x": -11, "z": -2 }, { "x": -19, "z": -2 } ] } },
-    { "id": "I", "tierId": "floor", "layout": { "type": "polygon", "rowDirection": 270, "points": [ { "x": -9, "z": -14 }, { "x": -1, "z": -14 }, { "x": -1, "z": -2 }, { "x": -9, "z": -2 } ] } },
-    { "id": "J", "tierId": "floor", "layout": { "type": "polygon", "rowDirection": 270, "points": [ { "x": 1, "z": -14 }, { "x": 9, "z": -14 }, { "x": 9, "z": -2 }, { "x": 1, "z": -2 } ] } },
-    { "id": "K", "tierId": "floor", "layout": { "type": "polygon", "rowDirection": 270, "points": [ { "x": 11, "z": -14 }, { "x": 19, "z": -14 }, { "x": 19, "z": -2 }, { "x": 11, "z": -2 } ] } },
-    { "id": "L", "tierId": "floor", "layout": { "type": "polygon", "rowDirection": 270, "points": [ { "x": 21, "z": -14 }, { "x": 29, "z": -14 }, { "x": 29, "z": -2 }, { "x": 21, "z": -2 } ] } },
-    { "id": "M", "tierId": "floor", "layout": { "type": "polygon", "rowDirection": 270, "points": [ { "x": -23, "z": 0 }, { "x": -15, "z": 0 }, { "x": -15, "z": 10 }, { "x": -23, "z": 10 } ] } },
-    { "id": "N", "tierId": "floor", "layout": { "type": "polygon", "rowDirection": 270, "points": [ { "x": -13, "z": 0 }, { "x": -5, "z": 0 }, { "x": -5, "z": 10 }, { "x": -13, "z": 10 } ] } },
-    { "id": "S", "tierId": "floor", "layout": { "type": "polygon", "rowDirection": 270, "points": [ { "x": -3, "z": 0 }, { "x": 5, "z": 0 }, { "x": 5, "z": 10 }, { "x": -3, "z": 10 } ] } },
-    { "id": "O", "tierId": "floor", "layout": { "type": "polygon", "rowDirection": 270, "points": [ { "x": 7, "z": 0 }, { "x": 15, "z": 0 }, { "x": 15, "z": 10 }, { "x": 7, "z": 10 } ] } },
-    { "id": "P", "tierId": "floor", "layout": { "type": "polygon", "rowDirection": 270, "points": [ { "x": 17, "z": 0 }, { "x": 25, "z": 0 }, { "x": 25, "z": 10 }, { "x": 17, "z": 10 } ] } },
-    { "id": "Q", "tierId": "floor", "layout": { "type": "polygon", "rowDirection": 270, "points": [ { "x": -18, "z": 12 }, { "x": -10, "z": 12 }, { "x": -10, "z": 20 }, { "x": -18, "z": 20 } ] } },
-    { "id": "R", "tierId": "floor", "layout": { "type": "polygon", "rowDirection": 270, "points": [ { "x": 10, "z": 12 }, { "x": 18, "z": 12 }, { "x": 18, "z": 20 }, { "x": 10, "z": 20 } ] } }
+    {
+      "id": "101",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": -11.74,
+        "endAngle": -3.91
+      }
+    },
+    {
+      "id": "102",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": -3.91,
+        "endAngle": 3.91
+      }
+    },
+    {
+      "id": "103",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 3.91,
+        "endAngle": 11.74
+      }
+    },
+    {
+      "id": "104",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 11.74,
+        "endAngle": 19.57
+      }
+    },
+    {
+      "id": "105",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 19.57,
+        "endAngle": 27.39
+      }
+    },
+    {
+      "id": "106",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 27.39,
+        "endAngle": 35.22
+      }
+    },
+    {
+      "id": "107",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 35.22,
+        "endAngle": 43.04
+      }
+    },
+    {
+      "id": "108",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 43.04,
+        "endAngle": 50.87
+      }
+    },
+    {
+      "id": "109",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 50.87,
+        "endAngle": 58.7
+      }
+    },
+    {
+      "id": "110",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 58.7,
+        "endAngle": 66.52
+      }
+    },
+    {
+      "id": "111",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 66.52,
+        "endAngle": 74.35
+      }
+    },
+    {
+      "id": "112",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 74.35,
+        "endAngle": 82.17
+      }
+    },
+    {
+      "id": "113",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 82.17,
+        "endAngle": 90.0
+      }
+    },
+    {
+      "id": "114",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 90.0,
+        "endAngle": 97.83
+      }
+    },
+    {
+      "id": "115",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 97.83,
+        "endAngle": 105.65
+      }
+    },
+    {
+      "id": "116",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 105.65,
+        "endAngle": 113.48
+      }
+    },
+    {
+      "id": "117",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 113.48,
+        "endAngle": 121.3
+      }
+    },
+    {
+      "id": "118",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 121.3,
+        "endAngle": 129.13
+      }
+    },
+    {
+      "id": "119",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 129.13,
+        "endAngle": 136.96
+      }
+    },
+    {
+      "id": "120",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 136.96,
+        "endAngle": 144.78
+      }
+    },
+    {
+      "id": "121",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 144.78,
+        "endAngle": 152.61
+      }
+    },
+    {
+      "id": "122",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 152.61,
+        "endAngle": 160.43
+      }
+    },
+    {
+      "id": "123",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 160.43,
+        "endAngle": 168.26
+      }
+    },
+    {
+      "id": "124",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 168.26,
+        "endAngle": 176.09
+      }
+    },
+    {
+      "id": "125",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 176.09,
+        "endAngle": 183.91
+      }
+    },
+    {
+      "id": "126",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 183.91,
+        "endAngle": 191.74
+      }
+    },
+    {
+      "id": "127",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 191.74,
+        "endAngle": 199.57
+      }
+    },
+    {
+      "id": "128",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 199.57,
+        "endAngle": 207.39
+      }
+    },
+    {
+      "id": "129",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 207.39,
+        "endAngle": 215.22
+      }
+    },
+    {
+      "id": "130",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 215.22,
+        "endAngle": 223.04
+      }
+    },
+    {
+      "id": "131",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 223.04,
+        "endAngle": 230.87
+      }
+    },
+    {
+      "id": "132",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 230.87,
+        "endAngle": 238.7
+      }
+    },
+    {
+      "id": "133",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 238.7,
+        "endAngle": 246.52
+      }
+    },
+    {
+      "id": "134",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 246.52,
+        "endAngle": 254.35
+      }
+    },
+    {
+      "id": "135",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 254.35,
+        "endAngle": 262.17
+      }
+    },
+    {
+      "id": "136",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 262.17,
+        "endAngle": 270.0
+      }
+    },
+    {
+      "id": "137",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 270.0,
+        "endAngle": 277.83
+      }
+    },
+    {
+      "id": "138",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 277.83,
+        "endAngle": 285.65
+      }
+    },
+    {
+      "id": "139",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 285.65,
+        "endAngle": 293.48
+      }
+    },
+    {
+      "id": "140",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 293.48,
+        "endAngle": 301.3
+      }
+    },
+    {
+      "id": "141",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 301.3,
+        "endAngle": 309.13
+      }
+    },
+    {
+      "id": "142",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 309.13,
+        "endAngle": 316.96
+      }
+    },
+    {
+      "id": "143",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 316.96,
+        "endAngle": 324.78
+      }
+    },
+    {
+      "id": "144",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 324.78,
+        "endAngle": 332.61
+      }
+    },
+    {
+      "id": "145",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 332.61,
+        "endAngle": 340.43
+      }
+    },
+    {
+      "id": "146",
+      "tierId": "b1",
+      "layout": {
+        "type": "arc",
+        "startAngle": 340.43,
+        "endAngle": 348.26
+      }
+    },
+    {
+      "id": "201",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": -8.18,
+        "endAngle": -0.0
+      }
+    },
+    {
+      "id": "202",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 0.0,
+        "endAngle": 8.18
+      }
+    },
+    {
+      "id": "203",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 8.18,
+        "endAngle": 16.36
+      }
+    },
+    {
+      "id": "204",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 16.36,
+        "endAngle": 24.55
+      }
+    },
+    {
+      "id": "205",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 24.55,
+        "endAngle": 32.73
+      }
+    },
+    {
+      "id": "206",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 32.73,
+        "endAngle": 40.91
+      }
+    },
+    {
+      "id": "207",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 40.91,
+        "endAngle": 49.09
+      }
+    },
+    {
+      "id": "208",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 49.09,
+        "endAngle": 57.27
+      }
+    },
+    {
+      "id": "209",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 57.27,
+        "endAngle": 65.45
+      }
+    },
+    {
+      "id": "210",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 65.45,
+        "endAngle": 73.64
+      }
+    },
+    {
+      "id": "211",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 73.64,
+        "endAngle": 81.82
+      }
+    },
+    {
+      "id": "212",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 81.82,
+        "endAngle": 90.0
+      }
+    },
+    {
+      "id": "213",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 90.0,
+        "endAngle": 98.18
+      }
+    },
+    {
+      "id": "214",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 98.18,
+        "endAngle": 106.36
+      }
+    },
+    {
+      "id": "215",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 106.36,
+        "endAngle": 114.55
+      }
+    },
+    {
+      "id": "216",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 114.55,
+        "endAngle": 122.73
+      }
+    },
+    {
+      "id": "217",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 122.73,
+        "endAngle": 130.91
+      }
+    },
+    {
+      "id": "218",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 130.91,
+        "endAngle": 139.09
+      }
+    },
+    {
+      "id": "219",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 139.09,
+        "endAngle": 147.27
+      }
+    },
+    {
+      "id": "220",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 147.27,
+        "endAngle": 155.45
+      }
+    },
+    {
+      "id": "221",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 155.45,
+        "endAngle": 163.64
+      }
+    },
+    {
+      "id": "222",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 163.64,
+        "endAngle": 171.82
+      }
+    },
+    {
+      "id": "223",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 171.82,
+        "endAngle": 180.0
+      }
+    },
+    {
+      "id": "224",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 180.0,
+        "endAngle": 188.18
+      }
+    },
+    {
+      "id": "225",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 188.18,
+        "endAngle": 196.36
+      }
+    },
+    {
+      "id": "226",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 196.36,
+        "endAngle": 204.55
+      }
+    },
+    {
+      "id": "227",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 204.55,
+        "endAngle": 212.73
+      }
+    },
+    {
+      "id": "228",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 212.73,
+        "endAngle": 220.91
+      }
+    },
+    {
+      "id": "229",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 220.91,
+        "endAngle": 229.09
+      }
+    },
+    {
+      "id": "230",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 229.09,
+        "endAngle": 237.27
+      }
+    },
+    {
+      "id": "231",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 237.27,
+        "endAngle": 245.45
+      }
+    },
+    {
+      "id": "232",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 245.45,
+        "endAngle": 253.64
+      }
+    },
+    {
+      "id": "233",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 253.64,
+        "endAngle": 261.82
+      }
+    },
+    {
+      "id": "234",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 261.82,
+        "endAngle": 270.0
+      }
+    },
+    {
+      "id": "235",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 270.0,
+        "endAngle": 278.18
+      }
+    },
+    {
+      "id": "236",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 278.18,
+        "endAngle": 286.36
+      }
+    },
+    {
+      "id": "237",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 286.36,
+        "endAngle": 294.55
+      }
+    },
+    {
+      "id": "238",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 294.55,
+        "endAngle": 302.73
+      }
+    },
+    {
+      "id": "239",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 302.73,
+        "endAngle": 310.91
+      }
+    },
+    {
+      "id": "240",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 310.91,
+        "endAngle": 319.09
+      }
+    },
+    {
+      "id": "241",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 319.09,
+        "endAngle": 327.27
+      }
+    },
+    {
+      "id": "242",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 327.27,
+        "endAngle": 335.45
+      }
+    },
+    {
+      "id": "243",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 335.45,
+        "endAngle": 343.64
+      }
+    },
+    {
+      "id": "244",
+      "tierId": "l2",
+      "layout": {
+        "type": "arc",
+        "startAngle": 343.64,
+        "endAngle": 351.82
+      }
+    },
+    {
+      "id": "301",
+      "tierId": "l3",
+      "layout": {
+        "type": "arc",
+        "startAngle": -55.0,
+        "endAngle": -37.94
+      }
+    },
+    {
+      "id": "302",
+      "tierId": "l3",
+      "layout": {
+        "type": "arc",
+        "startAngle": -37.94,
+        "endAngle": -20.88
+      }
+    },
+    {
+      "id": "303",
+      "tierId": "l3",
+      "layout": {
+        "type": "arc",
+        "startAngle": -20.88,
+        "endAngle": -3.82
+      }
+    },
+    {
+      "id": "304",
+      "tierId": "l3",
+      "layout": {
+        "type": "arc",
+        "startAngle": -3.82,
+        "endAngle": 13.24
+      }
+    },
+    {
+      "id": "305",
+      "tierId": "l3",
+      "layout": {
+        "type": "arc",
+        "startAngle": 13.24,
+        "endAngle": 30.29
+      }
+    },
+    {
+      "id": "306",
+      "tierId": "l3",
+      "layout": {
+        "type": "arc",
+        "startAngle": 30.29,
+        "endAngle": 47.35
+      }
+    },
+    {
+      "id": "307",
+      "tierId": "l3",
+      "layout": {
+        "type": "arc",
+        "startAngle": 47.35,
+        "endAngle": 64.41
+      }
+    },
+    {
+      "id": "308",
+      "tierId": "l3",
+      "layout": {
+        "type": "arc",
+        "startAngle": 64.41,
+        "endAngle": 81.47
+      }
+    },
+    {
+      "id": "309",
+      "tierId": "l3",
+      "layout": {
+        "type": "arc",
+        "startAngle": 81.47,
+        "endAngle": 98.53
+      }
+    },
+    {
+      "id": "310",
+      "tierId": "l3",
+      "layout": {
+        "type": "arc",
+        "startAngle": 98.53,
+        "endAngle": 115.59
+      }
+    },
+    {
+      "id": "311",
+      "tierId": "l3",
+      "layout": {
+        "type": "arc",
+        "startAngle": 115.59,
+        "endAngle": 132.65
+      }
+    },
+    {
+      "id": "312",
+      "tierId": "l3",
+      "layout": {
+        "type": "arc",
+        "startAngle": 132.65,
+        "endAngle": 149.71
+      }
+    },
+    {
+      "id": "313",
+      "tierId": "l3",
+      "layout": {
+        "type": "arc",
+        "startAngle": 149.71,
+        "endAngle": 166.76
+      }
+    },
+    {
+      "id": "314",
+      "tierId": "l3",
+      "layout": {
+        "type": "arc",
+        "startAngle": 166.76,
+        "endAngle": 183.82
+      }
+    },
+    {
+      "id": "315",
+      "tierId": "l3",
+      "layout": {
+        "type": "arc",
+        "startAngle": 183.82,
+        "endAngle": 200.88
+      }
+    },
+    {
+      "id": "316",
+      "tierId": "l3",
+      "layout": {
+        "type": "arc",
+        "startAngle": 200.88,
+        "endAngle": 217.94
+      }
+    },
+    {
+      "id": "317",
+      "tierId": "l3",
+      "layout": {
+        "type": "arc",
+        "startAngle": 217.94,
+        "endAngle": 235.0
+      }
+    },
+    {
+      "id": "401",
+      "tierId": "l4",
+      "layout": {
+        "type": "arc",
+        "startAngle": -55.0,
+        "endAngle": -37.94
+      }
+    },
+    {
+      "id": "402",
+      "tierId": "l4",
+      "layout": {
+        "type": "arc",
+        "startAngle": -37.94,
+        "endAngle": -20.88
+      }
+    },
+    {
+      "id": "403",
+      "tierId": "l4",
+      "layout": {
+        "type": "arc",
+        "startAngle": -20.88,
+        "endAngle": -3.82
+      }
+    },
+    {
+      "id": "404",
+      "tierId": "l4",
+      "layout": {
+        "type": "arc",
+        "startAngle": -3.82,
+        "endAngle": 13.24
+      }
+    },
+    {
+      "id": "405",
+      "tierId": "l4",
+      "layout": {
+        "type": "arc",
+        "startAngle": 13.24,
+        "endAngle": 30.29
+      }
+    },
+    {
+      "id": "406",
+      "tierId": "l4",
+      "layout": {
+        "type": "arc",
+        "startAngle": 30.29,
+        "endAngle": 47.35
+      }
+    },
+    {
+      "id": "407",
+      "tierId": "l4",
+      "layout": {
+        "type": "arc",
+        "startAngle": 47.35,
+        "endAngle": 64.41
+      }
+    },
+    {
+      "id": "408",
+      "tierId": "l4",
+      "layout": {
+        "type": "arc",
+        "startAngle": 64.41,
+        "endAngle": 81.47
+      }
+    },
+    {
+      "id": "409",
+      "tierId": "l4",
+      "layout": {
+        "type": "arc",
+        "startAngle": 81.47,
+        "endAngle": 98.53
+      }
+    },
+    {
+      "id": "410",
+      "tierId": "l4",
+      "layout": {
+        "type": "arc",
+        "startAngle": 98.53,
+        "endAngle": 115.59
+      }
+    },
+    {
+      "id": "411",
+      "tierId": "l4",
+      "layout": {
+        "type": "arc",
+        "startAngle": 115.59,
+        "endAngle": 132.65
+      }
+    },
+    {
+      "id": "412",
+      "tierId": "l4",
+      "layout": {
+        "type": "arc",
+        "startAngle": 132.65,
+        "endAngle": 149.71
+      }
+    },
+    {
+      "id": "413",
+      "tierId": "l4",
+      "layout": {
+        "type": "arc",
+        "startAngle": 149.71,
+        "endAngle": 166.76
+      }
+    },
+    {
+      "id": "414",
+      "tierId": "l4",
+      "layout": {
+        "type": "arc",
+        "startAngle": 166.76,
+        "endAngle": 183.82
+      }
+    },
+    {
+      "id": "415",
+      "tierId": "l4",
+      "layout": {
+        "type": "arc",
+        "startAngle": 183.82,
+        "endAngle": 200.88
+      }
+    },
+    {
+      "id": "416",
+      "tierId": "l4",
+      "layout": {
+        "type": "arc",
+        "startAngle": 200.88,
+        "endAngle": 217.94
+      }
+    },
+    {
+      "id": "417",
+      "tierId": "l4",
+      "layout": {
+        "type": "arc",
+        "startAngle": 217.94,
+        "endAngle": 235.0
+      }
+    },
+    {
+      "id": "501",
+      "tierId": "l5",
+      "layout": {
+        "type": "arc",
+        "startAngle": -30.0,
+        "endAngle": -14.0
+      }
+    },
+    {
+      "id": "502",
+      "tierId": "l5",
+      "layout": {
+        "type": "arc",
+        "startAngle": -14.0,
+        "endAngle": 2.0
+      }
+    },
+    {
+      "id": "503",
+      "tierId": "l5",
+      "layout": {
+        "type": "arc",
+        "startAngle": 2.0,
+        "endAngle": 18.0
+      }
+    },
+    {
+      "id": "504",
+      "tierId": "l5",
+      "layout": {
+        "type": "arc",
+        "startAngle": 18.0,
+        "endAngle": 34.0
+      }
+    },
+    {
+      "id": "505",
+      "tierId": "l5",
+      "layout": {
+        "type": "arc",
+        "startAngle": 34.0,
+        "endAngle": 50.0
+      }
+    },
+    {
+      "id": "506",
+      "tierId": "l5",
+      "layout": {
+        "type": "arc",
+        "startAngle": 50.0,
+        "endAngle": 66.0
+      }
+    },
+    {
+      "id": "507",
+      "tierId": "l5",
+      "layout": {
+        "type": "arc",
+        "startAngle": 66.0,
+        "endAngle": 82.0
+      }
+    },
+    {
+      "id": "508",
+      "tierId": "l5",
+      "layout": {
+        "type": "arc",
+        "startAngle": 82.0,
+        "endAngle": 98.0
+      }
+    },
+    {
+      "id": "509",
+      "tierId": "l5",
+      "layout": {
+        "type": "arc",
+        "startAngle": 98.0,
+        "endAngle": 114.0
+      }
+    },
+    {
+      "id": "510",
+      "tierId": "l5",
+      "layout": {
+        "type": "arc",
+        "startAngle": 114.0,
+        "endAngle": 130.0
+      }
+    },
+    {
+      "id": "511",
+      "tierId": "l5",
+      "layout": {
+        "type": "arc",
+        "startAngle": 130.0,
+        "endAngle": 146.0
+      }
+    },
+    {
+      "id": "512",
+      "tierId": "l5",
+      "layout": {
+        "type": "arc",
+        "startAngle": 146.0,
+        "endAngle": 162.0
+      }
+    },
+    {
+      "id": "513",
+      "tierId": "l5",
+      "layout": {
+        "type": "arc",
+        "startAngle": 162.0,
+        "endAngle": 178.0
+      }
+    },
+    {
+      "id": "514",
+      "tierId": "l5",
+      "layout": {
+        "type": "arc",
+        "startAngle": 178.0,
+        "endAngle": 194.0
+      }
+    },
+    {
+      "id": "515",
+      "tierId": "l5",
+      "layout": {
+        "type": "arc",
+        "startAngle": 194.0,
+        "endAngle": 210.0
+      }
+    },
+    {
+      "id": "A",
+      "tierId": "floor",
+      "layout": {
+        "type": "polygon",
+        "rowDirection": 270,
+        "points": [
+          {
+            "x": -29,
+            "z": -28
+          },
+          {
+            "x": -21,
+            "z": -28
+          },
+          {
+            "x": -21,
+            "z": -16
+          },
+          {
+            "x": -29,
+            "z": -16
+          }
+        ]
+      }
+    },
+    {
+      "id": "B",
+      "tierId": "floor",
+      "layout": {
+        "type": "polygon",
+        "rowDirection": 270,
+        "points": [
+          {
+            "x": -19,
+            "z": -28
+          },
+          {
+            "x": -11,
+            "z": -28
+          },
+          {
+            "x": -11,
+            "z": -16
+          },
+          {
+            "x": -19,
+            "z": -16
+          }
+        ]
+      }
+    },
+    {
+      "id": "C",
+      "tierId": "floor",
+      "layout": {
+        "type": "polygon",
+        "rowDirection": 270,
+        "points": [
+          {
+            "x": -9,
+            "z": -28
+          },
+          {
+            "x": -1,
+            "z": -28
+          },
+          {
+            "x": -1,
+            "z": -16
+          },
+          {
+            "x": -9,
+            "z": -16
+          }
+        ]
+      }
+    },
+    {
+      "id": "D",
+      "tierId": "floor",
+      "layout": {
+        "type": "polygon",
+        "rowDirection": 270,
+        "points": [
+          {
+            "x": 1,
+            "z": -28
+          },
+          {
+            "x": 9,
+            "z": -28
+          },
+          {
+            "x": 9,
+            "z": -16
+          },
+          {
+            "x": 1,
+            "z": -16
+          }
+        ]
+      }
+    },
+    {
+      "id": "E",
+      "tierId": "floor",
+      "layout": {
+        "type": "polygon",
+        "rowDirection": 270,
+        "points": [
+          {
+            "x": 11,
+            "z": -28
+          },
+          {
+            "x": 19,
+            "z": -28
+          },
+          {
+            "x": 19,
+            "z": -16
+          },
+          {
+            "x": 11,
+            "z": -16
+          }
+        ]
+      }
+    },
+    {
+      "id": "F",
+      "tierId": "floor",
+      "layout": {
+        "type": "polygon",
+        "rowDirection": 270,
+        "points": [
+          {
+            "x": 21,
+            "z": -28
+          },
+          {
+            "x": 29,
+            "z": -28
+          },
+          {
+            "x": 29,
+            "z": -16
+          },
+          {
+            "x": 21,
+            "z": -16
+          }
+        ]
+      }
+    },
+    {
+      "id": "G",
+      "tierId": "floor",
+      "layout": {
+        "type": "polygon",
+        "rowDirection": 270,
+        "points": [
+          {
+            "x": -29,
+            "z": -14
+          },
+          {
+            "x": -21,
+            "z": -14
+          },
+          {
+            "x": -21,
+            "z": -2
+          },
+          {
+            "x": -29,
+            "z": -2
+          }
+        ]
+      }
+    },
+    {
+      "id": "H",
+      "tierId": "floor",
+      "layout": {
+        "type": "polygon",
+        "rowDirection": 270,
+        "points": [
+          {
+            "x": -19,
+            "z": -14
+          },
+          {
+            "x": -11,
+            "z": -14
+          },
+          {
+            "x": -11,
+            "z": -2
+          },
+          {
+            "x": -19,
+            "z": -2
+          }
+        ]
+      }
+    },
+    {
+      "id": "I",
+      "tierId": "floor",
+      "layout": {
+        "type": "polygon",
+        "rowDirection": 270,
+        "points": [
+          {
+            "x": -9,
+            "z": -14
+          },
+          {
+            "x": -1,
+            "z": -14
+          },
+          {
+            "x": -1,
+            "z": -2
+          },
+          {
+            "x": -9,
+            "z": -2
+          }
+        ]
+      }
+    },
+    {
+      "id": "J",
+      "tierId": "floor",
+      "layout": {
+        "type": "polygon",
+        "rowDirection": 270,
+        "points": [
+          {
+            "x": 1,
+            "z": -14
+          },
+          {
+            "x": 9,
+            "z": -14
+          },
+          {
+            "x": 9,
+            "z": -2
+          },
+          {
+            "x": 1,
+            "z": -2
+          }
+        ]
+      }
+    },
+    {
+      "id": "K",
+      "tierId": "floor",
+      "layout": {
+        "type": "polygon",
+        "rowDirection": 270,
+        "points": [
+          {
+            "x": 11,
+            "z": -14
+          },
+          {
+            "x": 19,
+            "z": -14
+          },
+          {
+            "x": 19,
+            "z": -2
+          },
+          {
+            "x": 11,
+            "z": -2
+          }
+        ]
+      }
+    },
+    {
+      "id": "L",
+      "tierId": "floor",
+      "layout": {
+        "type": "polygon",
+        "rowDirection": 270,
+        "points": [
+          {
+            "x": 21,
+            "z": -14
+          },
+          {
+            "x": 29,
+            "z": -14
+          },
+          {
+            "x": 29,
+            "z": -2
+          },
+          {
+            "x": 21,
+            "z": -2
+          }
+        ]
+      }
+    },
+    {
+      "id": "M",
+      "tierId": "floor",
+      "layout": {
+        "type": "polygon",
+        "rowDirection": 270,
+        "points": [
+          {
+            "x": -23,
+            "z": 0
+          },
+          {
+            "x": -15,
+            "z": 0
+          },
+          {
+            "x": -15,
+            "z": 10
+          },
+          {
+            "x": -23,
+            "z": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "N",
+      "tierId": "floor",
+      "layout": {
+        "type": "polygon",
+        "rowDirection": 270,
+        "points": [
+          {
+            "x": -13,
+            "z": 0
+          },
+          {
+            "x": -5,
+            "z": 0
+          },
+          {
+            "x": -5,
+            "z": 10
+          },
+          {
+            "x": -13,
+            "z": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "S",
+      "tierId": "floor",
+      "layout": {
+        "type": "polygon",
+        "rowDirection": 270,
+        "points": [
+          {
+            "x": -3,
+            "z": 0
+          },
+          {
+            "x": 5,
+            "z": 0
+          },
+          {
+            "x": 5,
+            "z": 10
+          },
+          {
+            "x": -3,
+            "z": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "O",
+      "tierId": "floor",
+      "layout": {
+        "type": "polygon",
+        "rowDirection": 270,
+        "points": [
+          {
+            "x": 7,
+            "z": 0
+          },
+          {
+            "x": 15,
+            "z": 0
+          },
+          {
+            "x": 15,
+            "z": 10
+          },
+          {
+            "x": 7,
+            "z": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "P",
+      "tierId": "floor",
+      "layout": {
+        "type": "polygon",
+        "rowDirection": 270,
+        "points": [
+          {
+            "x": 17,
+            "z": 0
+          },
+          {
+            "x": 25,
+            "z": 0
+          },
+          {
+            "x": 25,
+            "z": 10
+          },
+          {
+            "x": 17,
+            "z": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "Q",
+      "tierId": "floor",
+      "layout": {
+        "type": "polygon",
+        "rowDirection": 270,
+        "points": [
+          {
+            "x": -18,
+            "z": 12
+          },
+          {
+            "x": -10,
+            "z": 12
+          },
+          {
+            "x": -10,
+            "z": 20
+          },
+          {
+            "x": -18,
+            "z": 20
+          }
+        ]
+      }
+    },
+    {
+      "id": "R",
+      "tierId": "floor",
+      "layout": {
+        "type": "polygon",
+        "rowDirection": 270,
+        "points": [
+          {
+            "x": 10,
+            "z": 12
+          },
+          {
+            "x": 18,
+            "z": 12
+          },
+          {
+            "x": 18,
+            "z": 20
+          },
+          {
+            "x": 10,
+            "z": 20
+          }
+        ]
+      }
+    }
   ],
-
   "obstructions": [
-    { "id": "col-1", "kind": "column", "position": { "x": 48, "z": -30 }, "radius": 0.8, "baseHeight": 0, "height": 30, "affectsSections": ["203", "204"] },
-    { "id": "rail-lower", "kind": "railing", "baseHeight": 16, "height": 1.0, "path": [ { "x": 68, "z": -10 }, { "x": 68, "z": 10 } ] }
+    {
+      "id": "col-1",
+      "kind": "column",
+      "position": {
+        "x": 48,
+        "z": -30
+      },
+      "radius": 0.8,
+      "baseHeight": 0,
+      "height": 30,
+      "affectsSections": [
+        "203",
+        "204"
+      ]
+    },
+    {
+      "id": "rail-lower",
+      "kind": "railing",
+      "baseHeight": 16,
+      "height": 1.0,
+      "path": [
+        {
+          "x": 68,
+          "z": -10
+        },
+        {
+          "x": 68,
+          "z": 10
+        }
+      ]
+    }
   ],
-
-  "eyeHeight": { "seated": 1.2, "standing": 1.6 }
+  "eyeHeight": {
+    "seated": 1.2,
+    "standing": 1.6
+  }
 }

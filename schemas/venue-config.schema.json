@@ -114,6 +114,11 @@
             }
           }
         },
+        "closedSections": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Section ids not open in this configuration (behind-stage seats, floor blocks during baseball, etc.)"
+        },
         "screens": {
           "type": "array",
           "description": "大螢幕 positions (also useful for '看螢幕會不會被擋')",

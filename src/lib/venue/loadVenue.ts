@@ -2,6 +2,7 @@ import type { Stage, VenueConfig } from "./types";
 import taipeiDome from "../../../data/venues/taipei-dome/venue.json";
 import endStage from "../../../data/venues/taipei-dome/stages/end-stage.json";
 import centerStage from "../../../data/venues/taipei-dome/stages/center-stage.json";
+import baseball from "../../../data/venues/taipei-dome/stages/baseball.json";
 
 // Data is bundled via import (not served from public/).
 // Swap this for a DB / API call later — callers only depend on loadVenue().
@@ -15,6 +16,7 @@ const stages: Record<string, Record<string, Stage>> = {
   "taipei-dome": {
     "end-stage": endStage as Stage,
     "center-stage": centerStage as Stage,
+    "baseball": baseball as Stage,
   },
 };
 

@@ -11,5 +11,6 @@
   ],
   "screens": [
     { "position": { "x": 0, "y": 20, "z": 0 }, "width": 16, "height": 9, "facing": 0 }
-  ]
+  ],
+  "closedSections": []
 }

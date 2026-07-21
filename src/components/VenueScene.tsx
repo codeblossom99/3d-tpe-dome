@@ -36,9 +36,11 @@ const camBtnStyle: React.CSSProperties = {
 
 const TIER_COLORS: Record<string, string> = {
   floor: "#4ade80",
-  lower: "#60a5fa",
-  middle: "#fbbf24",
-  upper: "#a78bfa",
+  b1: "#60a5fa",
+  l2: "#fbbf24",
+  l3: "#f87171",
+  l4: "#f9a8d4",
+  l5: "#a78bfa",
 };
 
 function useSectionMaterialColor(tierId: string, hovered: boolean, selected: boolean) {
@@ -194,8 +196,13 @@ export default function VenueScene({
   venueId: string;
   stageId?: string;
 }) {
-  const venue = useMemo(() => loadVenue(venueId), [venueId]);
+  const fullVenue = useMemo(() => loadVenue(venueId), [venueId]);
   const stage = useMemo(() => loadStage(venueId, stageId), [venueId, stageId]);
+  // this configuration's open sections only (closed = behind stage / floor during baseball)
+  const venue = useMemo(() => {
+    const closed = new Set(stage.closedSections ?? []);
+    return { ...fullVenue, sections: fullVenue.sections.filter((s) => !closed.has(s.id)) };
+  }, [fullVenue, stage]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [query, setQuery] = useState("");
@@ -505,7 +512,13 @@ export default function VenueScene({
           }}
         >
           <div style={{ fontSize: 12, opacity: 0.7 }}>
-            {venue.name}（{stageId === "center-stage" ? "中央舞台" : "標準舞台"}）
+            {venue.name}（
+            {stageId === "center-stage"
+              ? "中央舞台"
+              : stageId === "baseball"
+                ? "棒球"
+                : "標準舞台"}
+            ）
           </div>
           {selected ? (
             <>

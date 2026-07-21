@@ -83,6 +83,8 @@ export interface Stage {
   height?: number;
   extensions?: StageExtension[];
   screens?: StageScreen[];
+  /** Section ids not open for this configuration (e.g. behind-stage or floor blocks) */
+  closedSections?: string[];
 }
 
 export interface Obstruction {
