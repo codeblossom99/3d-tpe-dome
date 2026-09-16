@@ -11,7 +11,7 @@ export default async function VenuePage({
   const { stage } = await searchParams;
   return (
     <main style={{ width: "100vw", height: "100vh" }}>
-      <VenueViewer venueId={id} stageId={stage ?? "end-stage"} />
+      <VenueViewer venueId={id} stageId={stage ?? "baseball"} />
     </main>
   );
 }

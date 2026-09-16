@@ -1,46 +1,77 @@
-// Converts data/venues/taipei-dome/seatmaps/*.seatmap.txt into a single
-// bundled JSON the client imports. Run: node scripts/build-seatmaps.mjs
+// Bundle every Taipei Dome ASCII map into JSON imported by the client.
 import { readdirSync, readFileSync, writeFileSync } from "node:fs";
-import { join, dirname } from "node:path";
+import { basename, dirname, extname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const dir = join(__dirname, "../data/venues/taipei-dome/seatmaps");
+const root = join(dirname(fileURLToPath(import.meta.url)), "../data/venues/taipei-dome/seatmaps");
+const countSeats = (value) => [...value.matchAll(/\[(?:■|\d+)\]/g)].length;
+const numbers = (value) => [...value.matchAll(/\d+/g)].map((match) => Number(match[0]));
 
-const ROW_RE = /^Row\s+(\d+)\s*:\s*(.*)$/;
-const SEAT_RE = /\[(\d+)\]/g;
+function sectionId(path) {
+  const name = basename(path, extname(path));
+  const id = name.match(/(\d{3})區/)?.[1] ?? name;
+  return /前排/.test(name) ? `${id}f` : /後排/.test(name) ? `${id}b` : id;
+}
 
-function parse(text, fallbackSection) {
-  let section = fallbackSection;
-  const rows = [];
-  for (const line of text.split(/\r?\n/)) {
-    const h = line.match(/^section\s*:\s*(\S+)/i);
-    if (h) { section = h[1]; continue; }
-    const m = line.match(ROW_RE);
-    if (!m) continue;
-    const seats = [];
-    let s;
-    SEAT_RE.lastIndex = 0;
-    while ((s = SEAT_RE.exec(m[2]))) seats.push(parseInt(s[1], 10));
-    if (seats.length) rows.push({ row: parseInt(m[1], 10), seats });
+function parse(text, section) {
+  const lines = text.split(/\r?\n/);
+  const legacy = lines.flatMap((line) => {
+    const match = line.match(/^Row\s+(\d+)\s*:\s*(.*)$/);
+    if (!match) return [];
+    const seats = [...match[2].matchAll(/\[(\d+)\]/g)].map((seat) => Number(seat[1]));
+    return seats.length ? [{ row: Number(match[1]), seats }] : [];
+  });
+  if (legacy.length) return { section, rows: legacy };
+
+  const header = lines.find((line) => /^Row(?::|\s+\d)/.test(line));
+  const rowNumbers = header ? numbers(header) : [];
+  const matrix = lines.flatMap((line) => {
+    const match = line.match(/^(\d+)\s*:\s*(.*)$/);
+    return match && countSeats(match[2]) ? [match] : [];
+  });
+
+  if (rowNumbers.length && matrix.length) {
+    const byRow = new Map(rowNumbers.map((row) => [row, []]));
+    const direction = text.match(/^Field direction:\s*(.)/m)?.[1];
+    for (const line of matrix) {
+      const count = countSeats(line[2]);
+      const active = direction === "→" ? rowNumbers.slice(0, count) : rowNumbers.slice(-count);
+      for (const row of active) byRow.get(row).push(Number(line[1]));
+    }
+    return { section, rows: rowNumbers.map((row) => ({ row, seats: byRow.get(row) })).filter((row) => row.seats.length) };
   }
-  return { section, rows };
+
+  if (matrix.length) {
+    return { section, rows: matrix.map((line) => ({
+      row: Number(line[1]),
+      seats: Array.from({ length: countSeats(line[2]) }, (_, index) => index + 1),
+    })) };
+  }
+
+  const grid = lines.filter((line) => countSeats(line));
+  const direction = text.match(/^Field direction:\s*(.)/m)?.[1];
+  const byRow = new Map(rowNumbers.map((row) => [row, []]));
+  grid.forEach((line, index) => {
+    const count = countSeats(line);
+    const seat = direction === "→" ? grid.length - index : index + 1;
+    const active = direction === "→" ? rowNumbers.slice(0, count) : rowNumbers.slice(-count);
+    for (const row of active) byRow.get(row).push(seat);
+  });
+  return { section, rows: rowNumbers.map((row) => ({ row, seats: byRow.get(row) })).filter((row) => row.seats.length) };
 }
 
-const out = {};
-for (const f of readdirSync(dir)) {
-  if (!f.endsWith(".seatmap.txt")) continue;
-  const fallback = f.replace(/\.seatmap\.txt$/, "");
-  const map = parse(readFileSync(join(dir, f), "utf8"), fallback);
-  out[map.section] = map;
+function files(dir) {
+  return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const path = join(dir, entry.name);
+    return entry.isDirectory() ? files(path) : entry.name.endsWith(".txt") ? [path] : [];
+  });
 }
 
-const dest = join(dir, "seatmaps.generated.json");
-writeFileSync(dest, JSON.stringify(out, null, 2) + "\n");
-const total = Object.values(out).reduce(
-  (n, m) => n + m.rows.reduce((k, r) => k + r.seats.length, 0), 0);
-console.log(`Wrote ${dest}: ${Object.keys(out).length} section(s), ${total} seats`);
-for (const [id, m] of Object.entries(out)) {
-  console.log(`  ${id}: rows ${m.rows.map((r) => r.row).join(",")} — ` +
-    m.rows.map((r) => r.seats.length).join("/") + " seats/row");
-}
+const out = Object.fromEntries(files(root).map((path) => {
+  const id = sectionId(path);
+  return [id, parse(readFileSync(path, "utf8"), id)];
+}));
+const destination = join(root, "seatmaps.generated.json");
+writeFileSync(destination, `${JSON.stringify(out, null, 2)}\n`);
+const total = Object.values(out).reduce((sum, map) => sum + map.rows.reduce((n, row) => n + row.seats.length, 0), 0);
+console.log(`Wrote ${Object.keys(out).length} sections and ${total} seats to ${destination}`);

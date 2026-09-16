@@ -191,7 +191,7 @@ function Obstructions({ venue }: { venue: VenueConfig }) {
 
 export default function VenueScene({
   venueId,
-  stageId = "end-stage",
+  stageId = "baseball",
 }: {
   venueId: string;
   stageId?: string;
