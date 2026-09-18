@@ -216,6 +216,7 @@ export default function VenueScene({
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const [mode, setMode] = useState<"overview" | "pov">("overview");
+  const [showPovHint, setShowPovHint] = useState(false);
   const controls = useRef<CameraControls | null>(null);
 
   const selected = venue.sections.find((s) => s.id === selectedId) ?? null;
@@ -270,6 +271,7 @@ export default function VenueScene({
 
   const goOverview = useCallback(() => {
     setMode("overview");
+    setShowPovHint(false);
     controls.current?.setLookAt(0, 80, 120, 0, 0, 0, true);
   }, []);
 
@@ -292,6 +294,7 @@ export default function VenueScene({
     setQuery("");
     setIsPanelOpen(false);
     setMode("pov");
+    setShowPovHint(true);
     controls.current?.setLookAt(
       p.x, p.y, p.z,
       p.x + d.x * 0.5, p.y + d.y * 0.5, p.z + d.z * 0.5,
@@ -305,14 +308,23 @@ export default function VenueScene({
 
   const handleSectionSelect = useCallback(
     (id: string) => {
+      if (mode === "pov") return;
+
       if (window.matchMedia("(max-width: 720px)").matches) {
         goPovForSection(id);
         return;
       }
+
       focusSection(id);
     },
-    [focusSection, goPovForSection]
+    [mode, focusSection, goPovForSection]
   );
+
+  useEffect(() => {
+    if (!showPovHint) return;
+    const timer = window.setTimeout(() => setShowPovHint(false), 4000);
+    return () => window.clearTimeout(timer);
+  }, [showPovHint]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -339,6 +351,11 @@ export default function VenueScene({
       <Canvas
         camera={{ position: [0, 80, 120], fov: 50 }}
         gl={{ preserveDrawingBuffer: true }}
+        onDoubleClick={(event) => {
+          if (mode === "pov" && event.button === 0) {
+            goOverview();
+          }
+        }}
       >
         <ambientLight intensity={0.6} />
         <directionalLight position={[50, 100, 50]} intensity={1} />
@@ -636,6 +653,13 @@ export default function VenueScene({
           }}
         >
           ← 回到全景
+        </button>
+      )}
+
+      {mode === "pov" && showPovHint && (
+        <button className={styles.povHint} type="button" onClick={goOverview}>
+          <span className={styles.desktopHint}>雙擊滑鼠左鍵，退出座位視野</span>
+          <span className={styles.touchHint}>點這裡退出座位視野</span>
         </button>
       )}
     </div>
